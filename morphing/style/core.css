@@ -5,17 +5,18 @@ html,body {
     padding: 0;
     background: #eee;
     background-image: -moz-linear-gradient(top, 
-							#fafafa, 
-							#cccccc);
-	background-image: -webkit-gradient(linear,left top,left bottom,
-		color-stop(0, 		#fafafa),
-		color-stop(1, 		#cccccc));
+        #fafafa, 
+        #cccccc);
+    background-image: -webkit-gradient(linear,left top,left bottom,
+        color-stop(0, 		#fafafa),
+        color-stop(1, 		#cccccc));
     font-size:[[setting:fontsizereference]];
-    color: [[setting:fontcolour]];
+    color: [[setting:fontcolor]];
 }
 
 html, body, h1, h2, h3, h4, h5, h6, p, ul, ol, dl, input, textarea {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+    font-family: Arial, sans-serif;
 }
 
 h1 {font-size:140%;font-weight:bold;}
@@ -27,8 +28,12 @@ html a:hover,body a:hover {
     text-decoration: underline;
 }
 
-html a,body a, html a:visited,body a:visited {
+html a,body a {
     color: [[setting:linkcolor]];
+}
+
+html a:visited, body a:visited {
+    color: [[setting:visitedlinkcolor]];
 }
 
 html a:hover,body a:hover {
@@ -47,13 +52,13 @@ div.yui3-widget-bd a, .tabtree li a, .block div.content a, .unlist a, .categoryb
 a:active {
     outline: 0;
 
-/* for browsers that understand */
+    /* for browsers that understand */
 }
 
 a:focus {
     outline: 0;
 
-/* for browsers that understand */
+    /* for browsers that understand */
 }
 
 /**header divs **/
@@ -63,42 +68,40 @@ a:focus {
 }
 
 #headerwrap {
-	height: [[setting:headerheight]];
-	clear: both;
-	background: [[setting:headerbgc]];/* url([[pix:theme|header]]) repeat-x bottom left; /* this cannot be used with dynamic header height*/
-	border-bottom: 1px solid #fff;
+    height: [[setting:headerheight]];
+    clear: both;
+    background: [[setting:headerbgc]];/* url([[pix:theme|header]]) repeat-x bottom left; /* this cannot be used with dynamic header height*/
+    border-bottom: 1px solid #fff;
     position: relative;
 }
 
 #headerinner {
-	height: [[setting:headerheight]];
-	width: 90%;
-	margin-left: auto;
-	margin-right: auto;
+    height: [[setting:headerheight]];
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #logo {
-	position: absolute;
-	top: [[setting:logotop]];
+    position: absolute;
+    top: [[setting:logotop]];
     left: [[setting:logoleft]];
     margin: 0;
 }
 
- div.langmenu {
+div.langmenu {
     float: right !important;
     display: inline !important;
     padding: 0px 0px 0px 0px !important;
-    line-height: 28px !important;
     margin: 0px 0px 0px 5px !important;
-    font-size: 70%;
 }
 
 #ebutton {
-	width: 200px;
-	float: right;
-	text-align: right;
-	margin-top: 10px;
-	margin-right: 20px;
+    width: 200px;
+    float: right;
+    text-align: right;
+    margin-top: 10px;
+    margin-right: 20px;
 }
 
 #ebutton form input {
@@ -108,15 +111,15 @@ a:focus {
 
 /** main content wraps **/
 #contentwrapper {
-	margin-left: 15px;
-	margin-right: 15px;
-	margin-bottom: 15px;
-	padding-top: 10px;
-	clear: both;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    padding-top: 10px;
+    clear: both;
 }	
 
 #page-content {
-	clear: both;
+    clear: both;
 }
 
 
@@ -125,6 +128,7 @@ a:focus {
 div#jcontrols_button {
     border-bottom: 0px solid #666;
     background: [[setting:maincolor]] url([[pix:theme|shadtop]]) repeat-x bottom left;
+    font-size: [[setting:breadcrumbfontsize]];
 }
 
 div.jcontrolsleft {
@@ -149,18 +153,18 @@ div.jcontrolsright {
 }
 
 .jcontrolsright .logininfo {
-	color: #fff;
-	font-size: 85%;
-	font-weight: 200;
-	text-align: right;
+    color: #fff;
+    font-weight: 200;
+    text-align: right;
+    float: right;
 }
 
 .jcontrolsright .logininfo a{
-	color: #fff;
+    color: #fff;
 }
 
 div.jcontrolsright div.singlebutton, div.jcontrolsright div.forumsearch {
-    
+
 }
 
 .jcontrolsright .navbutton {
@@ -168,26 +172,26 @@ div.jcontrolsright div.singlebutton, div.jcontrolsright div.forumsearch {
 }
 
 .jcontrolsright input[type=submit] {
-    display: inline-block;
-	border: 1px solid #999;
+    display: inline;
+    border: 1px solid #999;
     background:             #dfdfdf;
     color:                  #333;
     background-image: -moz-linear-gradient(top, 
-                          #f5f5f5 0%,
-                          #cccccc 50%,
-                          #b5b5b5 50%,
-                          #f5f5f5 100%);
+        #f5f5f5 0%,
+        #cccccc 50%,
+        #b5b5b5 50%,
+        #f5f5f5 100%);
     background-image: -webkit-gradient(linear,left top,left bottom,
-    color-stop(0,         #f5f5f5),
-    color-stop(.5,        #cccccc),
-    color-stop(.5,        #b5b5b5),
-    color-stop(1,         #f5f5f5));
+        color-stop(0,         #f5f5f5),
+        color-stop(.5,        #cccccc),
+        color-stop(.5,        #b5b5b5),
+        color-stop(1,         #f5f5f5));
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#f5f5f5', EndColorStr='#b5b5b5')";
     padding: 2px 6px;
     text-decoration: none;
     text-shadow: 0 1px 0px  #fff;
-    font-size: 85%;
-    position: relative;
+    vertical-align: middle;
+    margin-top: -2px;
 }
 
 .jcontrolsright .navbutton input[type=text] {
@@ -201,20 +205,20 @@ div.jcontrolsright div.singlebutton, div.jcontrolsright div.forumsearch {
 
 /** foot wraps and inner divs **/
 #footerwrapper {
-	background: [[setting:maincolor]] url([[pix:theme|shadbottom]]) repeat-x top left;
-	margin-top: 15px;
-	
+    background: [[setting:maincolor]] url([[pix:theme|shadbottom]]) repeat-x top left;
+    margin-top: 15px;
+
 }
 
 #footerinner {
-	width: 90%;
-	margin-left: auto;
-	margin-right: auto;
-	color: #eee;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    color: #eee;
 }
 
 #footerinner a {
-	color: #fff;
+    color: #fff;
 }
 
 .johndocs {
@@ -247,10 +251,6 @@ div.johndocsleft, span.johndocsleft {
     text-shadow: 1px -1px 1px #333;
 }
 
-.breadcrumb li {
-	font-size: 85%;
-}
-
 .breadcrumb li a:hover {
     text-decoration: underline;
 }
@@ -269,31 +269,31 @@ div#jcontrols_button2 span.arrow.sep {
     display: inline-block;
     width: 16px;
     line-height: [[setting:navheight]];
-    
+
 }
 
 span.arrow.sep {
-	font-size: 80%;
-	text-shadow: 0 -1px 1px #000000;
+    font-size: 80%;
+    text-shadow: 0 -1px 1px #000000;
 }
 
 #page-content #region-main {
-	
+
 }
 
 #mainpadder {
-	padding: 15px;
-	}
+    padding: 15px;
+}
 
 #region-main .region-content {
-	border: 1px solid #ccc;
-	background: #fff;
+    border: 1px solid #ccc;
+    background: #fff;
     -webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border-radius: 2px;
-	-webkit-box-shadow: 0px 1px 3px #ccc;
-	-moz-box-shadow: -1px 1px 3px #ccc;
-	box-shadow: -1px 1px 3px #ccc;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-box-shadow: 0px 1px 3px #ccc;
+    -moz-box-shadow: -1px 1px 3px #ccc;
+    box-shadow: -1px 1px 3px #ccc;
 }
 
 /** Block styles **/
@@ -303,11 +303,11 @@ span.arrow.sep {
     padding: 5px;
     border: 1px solid #ccc;
     -webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border-radius: 2px;
-	-webkit-box-shadow: 0px 1px 3px #ccc;
-	-moz-box-shadow: 0px 1px 3px #ccc;
-	box-shadow: 0px 1px 3px #ccc;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-box-shadow: 0px 1px 3px #ccc;
+    -moz-box-shadow: 0px 1px 3px #ccc;
+    box-shadow: 0px 1px 3px #ccc;
 }
 
 .block .content {
@@ -320,9 +320,7 @@ span.arrow.sep {
     min-height: 33px;
     height: auto !important;
     height: 33px;
-    padding-left: 18px;
-    /*background: [[setting:maincolor]] url([[pix:theme|block_header_icon]]) no-repeat scroll 4px 7px;*/
-	background: [[setting:maincolor]] url([[pix:theme|bart5]]) repeat-x;
+    background: [[setting:maincolor]] url([[pix:theme|bart5]]) repeat-x;
 }
 
 .block.hidden div.header {
@@ -336,6 +334,13 @@ span.arrow.sep {
 
 .block.block_with_controls div.header div.commands a img {
     margin-right: 3px;
+}
+
+.block .header h2 {
+    font-size: [[setting:blocktitlefontsize]];
+    padding: 10px 35px 0 5px;
+    text-align: [[setting:blocktitlealign]];
+    padding-left: [[setting:blocktitleleft]];
 }
 
 .title h2 {
@@ -476,7 +481,7 @@ div.yui3-widget-bd h1.helpheading {
 
 .yui-module.yui-overlay.yui-panel div.hd {
     background: #eeeeee url([[pix:theme|bart5]]) repeat-x 0% 90%;
-    }
+}
 
 /**moodle dropdown css for yui menu **/
 
@@ -485,14 +490,14 @@ div.yui3-widget-bd h1.helpheading {
     font-weight: 600;
     border: none !important;
     float: left;
-	width: 60%;
-	border: 0px solid #fff !important;
-	margin-left: 25px;
-	margin-top: 29px;
+    width: 60%;
+    border: 0px solid #fff !important;
+    margin-left: 25px;
+    margin-top: 29px;
 }
 
 #custommenu2 * {
-	border: none !important;
+    border: none !important;
 }
 
 /*YUI Reset */
@@ -512,42 +517,42 @@ div.yui3-widget-bd h1.helpheading {
 .yui3-skin-sam #page .yui3-splitbuttonnav .yui3-menu-label-menuvisible .yui3-menu-toggle { background-position: 0% 50%; }
 
 .yui3-skin-sam #page .yui3-menu-label, .yui3-skin-sam #page .yui3-menuitem-content  {
-	color: #aaa;
-	font-weight: 300;
-	text-shadow: 1px -1px 1px #000;
+    color: #aaa;
+    font-weight: 300;
+    text-shadow: 1px -1px 1px #000;
 }
 
 .custom_menu_submenu .yui3-menu-label, .custom_menu_submenu .yui3-menuitem-content {
-	color: #000 !important;
-	text-shadow: none !important;
+    color: #000 !important;
+    text-shadow: none !important;
 }
 
 .yui3-skin-sam #page .yui3-menu-label.yui3-menu-label-active, .yui3-skin-sam #page .yui3-menuitem-active .yui3-menuitem-content {
-	color: #fff;
+    color: #fff;
 
 }
 
 
 
 .yui3-skin-sam #page .yui3-menu-content, .yui3-skin-sam #page .yui3-menu-content, .yui3-skin-sam #page .yui3-menu .yui3-menu .yui3-menu-content, .yui3-skin-sam #page .yui3-menu-horizontal .yui3-menu-label, .yui3-skin-sam #page .yui3-menu-horizontal .yui3-menuitem-content  {
-	border: none;
+    border: none;
 }
 
 .yui3-skin-sam .yui3-menu-horizontal .yui3-menu-label, .yui3-skin-sam .yui3-menu-horizontal .yui3-menuitem-content {
-border-color:#808080;
-border-style:solid;
-border-width:0px 0;
+    border-color:#808080;
+    border-style:solid;
+    border-width:0px 0;
 }
 
 #page .custom_menu_submenu {
-	border: 2px solid [[setting:maincolor]] !important;
-	background: #fff;
-	 -webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border-radius: 2px;
-	-webkit-box-shadow: 0px 1px 3px #ccc;
-	-moz-box-shadow: 0px 1px 3px #ccc;
-	box-shadow: 0px 1px 3px #ccc;
+    border: 2px solid [[setting:maincolor]] !important;
+    background: #fff;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-box-shadow: 0px 1px 3px #ccc;
+    -moz-box-shadow: 0px 1px 3px #ccc;
+    box-shadow: 0px 1px 3px #ccc;
 }
 
 /** yui moodle dock bar **/
@@ -635,12 +640,11 @@ h3.sectionname, h2.headingblock,h2.main,h3.main, h2.main a, h3.main a, div.login
     margin: 3px 0 2px;
     border-bottom: 2px solid [[setting:maincolor]];
     display: block;
-
     font-weight: normal;
     color: [[setting:maincolor]];
-    }
+}
 
- #page-course-info h2.main, h3.sectionname, h2.main a, h3.main a, div.loginpanel h2, div.signuppanel h2, div.hd h3.main {
+#page-course-info h2.main, h3.sectionname, h2.main a, h3.main a, div.loginpanel h2, div.signuppanel h2, div.hd h3.main {
     font-size: 120%;
     background: none;
 }
@@ -650,74 +654,74 @@ h3.sectionname {
 }
 
 #page-my-index h3.main {
-	border-bottom: 0px;
+    border-bottom: 0px;
 }
 
 /** forum post style **/
 
 .forumpost {
-	border: 1px solid #ccc;
-	 -webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border-radius: 2px;
-	-webkit-box-shadow: 0px 1px 3px #ccc;
-	-moz-box-shadow: 0px 1px 3px #ccc;
-	box-shadow: 0px 1px 3px #ccc;
+    border: 1px solid #ccc;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-box-shadow: 0px 1px 3px #ccc;
+    -moz-box-shadow: 0px 1px 3px #ccc;
+    box-shadow: 0px 1px 3px #ccc;
 
 }
 
 .forumpost div.row.header {
-	background: #eee url([[pix:theme|forumt]]) no-repeat 20px 100%;
-	padding-bottom: 12px;
+    background: #eee url([[pix:theme|forumt]]) no-repeat 20px 100%;
+    padding-bottom: 12px;
 }
 
 .forumpost.starter div.row.header {
-	background: #ccc url([[pix:theme|forumt]]) no-repeat 20px 100%;
-	
+    background: #ccc url([[pix:theme|forumt]]) no-repeat 20px 100%;
+
 }	
-	
+
 
 .forumpost .left.picture img {
-	border: 2px solid #fff;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border-radius: 2px;
-	-webkit-box-shadow: 0px 1px 3px #ccc;
-	-moz-box-shadow: 0px 1px 3px #ccc;
-	box-shadow: 0px 1px 3px #ccc;
+    border: 2px solid #fff;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-box-shadow: 0px 1px 3px #ccc;
+    -moz-box-shadow: 0px 1px 3px #ccc;
+    box-shadow: 0px 1px 3px #ccc;
 }
 .forumpost .topic {
-	padding-top: 5px;
-	padding-left: 5px;
+    padding-top: 5px;
+    padding-left: 5px;
 }
 
 .forumpost .subject {
-	font-size: 110%;
+    font-size: 110%;
 }
 
 .forumpost .author {
-	font-size: 90%;
-	font-weight: 300;
+    font-size: 90%;
+    font-weight: 300;
 }
 
- .forumpost .content {
-	padding: 10px;
+.forumpost .content {
+    padding: 10px;
 }
 
 .forumpost .row.side {
-	font-size: 90%;
-	padding-top: 10px;
-	padding-bottom: 5px;
-	
+    font-size: 90%;
+    padding-top: 10px;
+    padding-bottom: 5px;
+
 }
 
 .forumpost .commands {
-	padding-right: 5px;
+    padding-right: 5px;
 }
 
 
 .row .options {
-	padding-right: 10px;
+    padding-right: 10px;
 }
 
 .info .name a {
@@ -798,24 +802,24 @@ table.rolecap td.risk {
 }
 
 .overview-tablecontainer, .graph {
-	overflow: auto;
+    overflow: auto;
 }
 
 #translator td.cell.lastcol {
-	padding-left: 0px;
-	padding-right: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
 #translator td {
-	font-size: 90%;
+    font-size: 90%;
 }
 
 .path-admin-report-customlang #translator tr td textarea {
-	min-width: 300px;
+    min-width: 300px;
 }
 
 .path-admin-report-customlang #translator tr td div.preformatted {
-	max-width: 400px;
+    max-width: 400px;
 }
 
 /** Coursebox and category box stuff for front page **/
@@ -937,16 +941,16 @@ div.course_category_tree div.controls div {
 }
 
 .course-content .main {
-  background:#eee;
- }
+    background:#eee;
+}
 
 .course-content .current {
-  background:#ffffcc;
-  color:#000;
- }
- 
+    background:#ffffcc;
+    color:#000;
+}
+
 .course-content .main .content {
-    padding: 10px;
+    padding: 20px 10px;
     background:#fff;
 }
 
@@ -1112,8 +1116,9 @@ div.forgetpass {
     clear: both;
 }
 
-div.loginform {
-    width: 50% !important;
+div.loginform input#loginbtn {
+    clear: both;
+    display: block;
 }
 
 div.loginform div.form-input input {
@@ -1122,6 +1127,14 @@ div.loginform div.form-input input {
 
 div.loginform label {
     line-height: 20px;
+}
+
+.loginbox .loginform .form-label {
+    width: 47%;
+}
+
+.loginbox .loginform .form-input {
+    width: 51%;
 }
 
 div.signuppanel {
@@ -1145,32 +1158,32 @@ div.singlebutton.forumaddnew {
 }
 
 #ebutton input[type="submit"] {
-	display: inline-block;
-	 border: 1px solid       #999;
-  background:             #dfdfdf;
-  color:                  #333;
-  text-shadow: 0 1px 0px  #fff;
-  background-image: -moz-linear-gradient(top, 
-                          #f5f5f5 0%,
-                          #cccccc 50%,
-                          #b5b5b5 50%,
-                          #f5f5f5 100%);
-  background-image: -webkit-gradient(linear,left top,left bottom,
-    color-stop(0,         #f5f5f5),
-    color-stop(.5,        #cccccc),
-    color-stop(.5,        #b5b5b5),
-    color-stop(1,         #f5f5f5));
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#f5f5f5', EndColorStr='#b5b5b5')";
-  
-  padding: 4px;
-   font-weight: bold;
-  text-decoration: none;
-  text-shadow: 0 1px 0px  #fff;
-  font-size: 90%;
+    display: inline-block;
+    border: 1px solid       #999;
+    background:             #dfdfdf;
+    color:                  #333;
+    text-shadow: 0 1px 0px  #fff;
+    background-image: -moz-linear-gradient(top, 
+        #f5f5f5 0%,
+        #cccccc 50%,
+        #b5b5b5 50%,
+        #f5f5f5 100%);
+    background-image: -webkit-gradient(linear,left top,left bottom,
+        color-stop(0,         #f5f5f5),
+        color-stop(.5,        #cccccc),
+        color-stop(.5,        #b5b5b5),
+        color-stop(1,         #f5f5f5));
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#f5f5f5', EndColorStr='#b5b5b5')";
+
+    padding: 4px;
+    font-weight: bold;
+    text-decoration: none;
+    text-shadow: 0 1px 0px  #fff;
+    font-size: 90%;
 }
 
 #ebutton td input[type="submit"] {
-	margin-top: 10px;
+    margin-top: 10px;
 }
 
 div.clear {
@@ -1180,18 +1193,18 @@ div.clear {
 #footer-fix {
     text-align: center;
     padding-top: 10px;
-	padding-bottom: 10px;
+    padding-bottom: 10px;
 }
 
 #footer-fix #new-footer {
-	
+
 }
 
 #footer-fix #new-footer .logininfo {
-	width: 300px;
-	margin: 0 auto;
-	text-align: center;
-	font-size: 85%;
+    width: 300px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 85%;
 }
 
 .ie7 #footer-fix .johndocs {
@@ -1211,7 +1224,7 @@ div.questionbankwindow.block {
     width: 95% !important;
 }
 #footer-fix div.johndocsleft  div {
-	padding-right: 8px;
+    padding-right: 8px;
 }
 
 .block_settings .block_tree li.item_with_icon > p img {
@@ -1227,6 +1240,14 @@ div.questionbankwindow.block {
     top: 3px;
 }
 
+.block_navigation .block_tree .tree_item.branch {
+    background-position: left center !important;
+}
+
+.block_navigation .block_tree li.item_with_icon > p img {
+    top: 1px !important;
+}
+
 .block_settings .block_tree li.item_with_icon > p {
     margin: 4px 0;
     padding-left: 20px;
@@ -1240,12 +1261,8 @@ input#shortsearchbox, input#coursesearchbox {
     margin: 0 8px;
 }
 
-.langmenu form div {
-    padding-top: 2px;
-}
-
 form select.menulang {
-    margin: 5px 0 0 5px;
+    margin: 0 0 0 5px;
 }
 
 .course-content ul.topics,
@@ -1293,9 +1310,45 @@ form .felement select, form .felement input  {
 .side-pre-only #page-content #region-main {margin-left:[[setting:regionwidth]];}
 
 .form-description {
-    color: [[setting:fontcolour]];
+    color: [[setting:fontcolor]];
 }
 
+#new-footer p {
+    margin: 4px 0 0;
+    font-size: 85%;
+}
+
+.path-course-view .single-section .completionprogress {
+    margin: -16px -42px 0;
+    padding: 0;
+}
+
+
+.path-course-view li.activity span.autocompletion {
+    padding: 2px 0;
+    right: 10px;
+}
+
+.helplink a img {
+    vertical-align: middle;
+    margin: 0 5px 0 10px;
+}
+
+.loginbox .loginsub {
+    width: 50%;
+    margin: 0 auto;
+}
+
+a.logged-in-link, #footerinner a.logged-in-link, .jcontrolsright .logininfo a.logged-in-link {
+    color: [[setting:loggedincolor]];
+}
+
+#breadcrumb-container {
+    float: left;
+    position: relative;
+    left: [[setting:breadcrumbleft]];
+    top: [[setting:breadcrumbtop]];
+}
 
 /** Custom CSS **/
 [[setting:customcss]]

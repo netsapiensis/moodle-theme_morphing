@@ -146,7 +146,7 @@ $THEME->layouts = array(
 // $THEME->filter_mediaplugin_colors
 
 ////////////////////////////////////////////////////
-// Used to control the colours used in the small
+// Used to control the colors used in the small
 // media player for the filters
 ////////////////////////////////////////////////////
 
@@ -215,6 +215,8 @@ $THEME->layouts = array(
 // $THEME->resource_mp3player_colors
 
 ////////////////////////////////////////////////////
-// Controls the colours for the MP3 player
+
+//use custom renderer
+$THEME->rendererfactory = 'theme_overridden_renderer_factory';
 ////////////////////////////////////////////////////
 $THEME->csspostprocess = 'morphing_process_css';

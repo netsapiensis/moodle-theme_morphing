@@ -33,36 +33,34 @@ echo $OUTPUT->doctype()
     <head>
         <title><?php echo $PAGE->title ?></title>
         <link rel="shortcut icon" href="<?php echo $OUTPUT->pix_url('favicon', 'theme') ?>" />
-<?php echo $OUTPUT->standard_head_html() ?>
+        <?php echo $OUTPUT->standard_head_html() ?>
     </head>
     <body id="<?php echo $PAGE->bodyid ?>" class="<?php echo $PAGE->bodyclasses . ' ' . join(' ', $bodyclasses) ?>">
-<?php echo $OUTPUT->standard_top_of_body_html() ?>
+        <?php echo $OUTPUT->standard_top_of_body_html() ?>
 
         <div id="page">	
-<?php if ($hasheading || $hasnavbar) { ?>
+            <?php if ($hasheading || $hasnavbar) { ?>
                 <div id="headerwrap"><div id="page-header"></div>
                     <div id="headerinner">
-                    <?php
+                        <?php
                         if ($haslogo)
                             echo html_writer::link(new moodle_url('/'), "<img src='" . $PAGE->theme->settings->logo . "' alt='logo' id='logo' />");
                         ?>
 
-                            <?php if ($hascustommenu) { ?>
+                        <?php if ($hascustommenu) { ?>
                             <div id="custommenu2"><div id="custommenu"><?php echo $custommenu; ?></div></div>
-    <?php } ?>
+                        <?php } ?>
                         <div id="ebutton">
-    <?php //if ($hasnavbar) { echo $PAGE->button; }  ?>
+                            <?php //if ($hasnavbar) { echo $PAGE->button; }  ?>
                         </div>			
                     </div>
                 </div>					
                 <div id="jcontrols_button">
-                    <div class="jcontrolsleft">
-                        <?php if ($hasnavbar) { ?>
-                            <div class="navbar clearfix">
-                                <div class="breadcrumb"> <?php echo $OUTPUT->navbar(); ?></div>
-                            </div>
-                        <?php } ?>
-                    </div>
+                    <?php if ($hasnavbar) { ?>
+                        <div class="navbar clearfix" id="breadcrumb-container">
+                            <div class="breadcrumb"> <?php echo $OUTPUT->navbar(); ?></div>
+                        </div>
+                    <?php } ?>
                     <div class="jcontrolsright">
                         <div class="navbutton"><?php echo $PAGE->button; ?></div>
                         <?php
@@ -76,7 +74,7 @@ echo $OUTPUT->doctype()
                         ?>
                     </div>
                 </div>	
-<?php } ?>
+            <?php } ?>
             <div id="contentwrapper">	
                 <!-- start OF moodle CONTENT -->
                 <div id="page-content">
@@ -87,7 +85,7 @@ echo $OUTPUT->doctype()
                                 <div id="region-main">
                                     <div class="region-content">
                                         <div id="mainpadder">
-                            <?php echo core_renderer::MAIN_CONTENT_TOKEN ?>
+                                            <?php echo core_renderer::MAIN_CONTENT_TOKEN ?>
                                         </div>
                                     </div>
                                 </div>
@@ -96,19 +94,19 @@ echo $OUTPUT->doctype()
                             <?php if ($hassidepre) { ?>
                                 <div id="region-pre" class="block-region">
                                     <div class="region-content">
-                                <?php echo $OUTPUT->blocks_for_region('side-pre') ?>
+                                        <?php echo $OUTPUT->blocks_for_region('side-pre') ?>
                                     </div>
                                 </div>
-                                    <?php } ?>
+                            <?php } ?>
 
-<?php if ($hassidepost) { ?>
+                            <?php if ($hassidepost) { ?>
                                 <div id="region-post" class="block-region">
                                     <div class="region-content">
 
-    <?php echo $OUTPUT->blocks_for_region('side-post') ?>
+                                        <?php echo $OUTPUT->blocks_for_region('side-post') ?>
                                     </div>
                                 </div>
-<?php } ?>
+                            <?php } ?>
 
                         </div>
                     </div>
@@ -117,31 +115,33 @@ echo $OUTPUT->doctype()
             </div>      
 
             <br style="clear: both;"> 
-                            <?php if ($hasfooter) { ?> 
+            <?php if ($hasfooter) { ?> 
                 <div id="footerwrapper">
                     <div id="footerinner" style="text-align: center">
                         <div id="footer-fix">
                             <div id="new-footer">
-                            <?php
-                            if ($hasfooter) {
-                                echo $OUTPUT->login_info();
-                                //echo $//OUTPUT->home_link();
-                                //echo $OUTPUT->standard_footer_html();
-                                ?>
-                                </div>
-        <?php /* <div class="johndocs"> 
-          <?php echo page_doc_link(get_string('moodledocslink')) ?>
-          <?php /*</div>
-          <?php echo $footnote; ?> */ ?>
-    <?php } ?>
+                                <?php if ($hasfooter) : ?>
+                                    <?php echo $OUTPUT->login_info(); ?>
+                                    <?php /*
+                                            echo $//OUTPUT->home_link();
+                                            echo $OUTPUT->standard_footer_html();
+                                    */ ?>
+                                    <?php echo $footnote; ?>
+                                <?php endif ?>
+                            </div>
+                            <?php 
+                            /* <div class="johndocs"> 
+                              <?php echo page_doc_link(get_string('moodledocslink')) ?>
+                              <?php /*</div> 
+                             */ ?>
                             <div class="clear"></div>
                         </div>
                     </div>		
                 </div>
-<?php } ?>
+            <?php } ?>
 
         </div>    		
 
-<?php echo $OUTPUT->standard_end_of_body_html() ?>
+        <?php echo $OUTPUT->standard_end_of_body_html() ?>
     </body>
 </html>
