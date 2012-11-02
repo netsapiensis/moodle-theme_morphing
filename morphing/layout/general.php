@@ -9,7 +9,24 @@ $showsidepost = $hassidepost && !$PAGE->blocks->region_completely_docked('side-p
 
 $custommenu = $OUTPUT->custom_menu();
 $hascustommenu = (empty($PAGE->layout_options['nocustommenu']) && !empty($custommenu));
+
+$showcustommenu = !empty($PAGE->theme->settings->custommenudisplay) ? $PAGE->theme->settings->custommenudisplay : 'none';
+switch($showcustommenu) {
+    case 'front':
+        $hascustommenu = $PAGE->course->id == SITEID;
+        break;
+    case 'all':
+        $hascustommenu = !empty($custommenu);
+        break;
+    case 'none':
+    default:
+        $hascustommenu = false;
+        break;
+}
+
 $haslogo = (!empty($PAGE->theme->settings->logo));
+
+$hassecondlogo = (!empty($PAGE->theme->settings->secondlogo));
 
 $bodyclasses = array();
 if ($showsidepre && !$showsidepost) {
@@ -42,14 +59,16 @@ echo $OUTPUT->doctype()
             <?php if ($hasheading || $hasnavbar) { ?>
                 <div id="headerwrap"><div id="page-header"></div>
                     <div id="headerinner">
+                        <?php if ($haslogo || $hassecondlogo) echo '<div class="logo-container">' ?>
                         <?php
                         if ($haslogo)
-                            echo html_writer::link(new moodle_url('/'), "<img src='" . $PAGE->theme->settings->logo . "' alt='logo' id='logo' />");
+                            echo html_writer::link(new moodle_url('/'), "<img src='" . $PAGE->theme->settings->logo . "' alt='logo' id='logo' />", array('class' => 'logo-link'));
+                        
+                        if ($hassecondlogo) 
+                            echo "<img src='{$PAGE->theme->settings->secondlogo}' alt='' id='second_logo' />";
                         ?>
-
-                        <?php if ($hascustommenu) { ?>
-                            <div id="custommenu2"><div id="custommenu"><?php echo $custommenu; ?></div></div>
-                        <?php } ?>
+                        <?php if ($haslogo || $hassecondlogo) echo '</div>' ?>
+                        <div class="clear"></div>
                         <div id="ebutton">
                             <?php //if ($hasnavbar) { echo $PAGE->button; }  ?>
                         </div>			
@@ -73,7 +92,10 @@ echo $OUTPUT->doctype()
                         }
                         ?>
                     </div>
-                </div>	
+                </div>
+                <?php if ($hascustommenu) { ?>
+                    <div id="custommenu2"><?php echo $custommenu; ?></div>
+                <?php } ?>
             <?php } ?>
             <div id="contentwrapper">	
                 <!-- start OF moodle CONTENT -->

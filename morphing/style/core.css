@@ -10,6 +10,8 @@ html,body {
     background-image: -webkit-gradient(linear,left top,left bottom,
         color-stop(0, 		#fafafa),
         color-stop(1, 		#cccccc));
+    /*new background color settings */
+    background: [[setting:mainbackgroundcolor]] [[setting:mainbackgroundimage]];
     font-size:[[setting:fontsizereference]];
     color: [[setting:fontcolor]];
 }
@@ -75,18 +77,31 @@ a:focus {
     position: relative;
 }
 
+#headerwrap a, #jcontrols_button a {
+    color: [[setting:headerlinkcolor]];
+}
+
 #headerinner {
     height: [[setting:headerheight]];
-    width: 90%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
 }
 
-#logo {
+#headerinner div.logo-container {
+    display: inline-block;
     position: absolute;
     top: [[setting:logotop]];
     left: [[setting:logoleft]];
-    margin: 0;
+    vertical-align: top;
+}
+
+#headerinner div.logo-container * {
+    vertical-align: top;
+}
+
+#logo {
+    margin-right: 20px;
 }
 
 div.langmenu {
@@ -120,6 +135,10 @@ div.langmenu {
 
 #page-content {
     clear: both;
+    float: none;
+    margin: 0 auto;
+    min-width: 0;
+    width: [[setting:layoutwidth]];
 }
 
 
@@ -301,7 +320,7 @@ span.arrow.sep {
 .block {
     margin: 0 0 15px 0 !important;
     padding: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid [[setting:blockbordercolor]];
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;
@@ -320,7 +339,7 @@ span.arrow.sep {
     min-height: 33px;
     height: auto !important;
     height: 33px;
-    background: [[setting:maincolor]] url([[pix:theme|bart5]]) repeat-x;
+    background: [[setting:blockheadercolor]] url([[pix:theme|bart5]]) repeat-x;
 }
 
 .block.hidden div.header {
@@ -488,12 +507,29 @@ div.yui3-widget-bd h1.helpheading {
 #custommenu2 {
     font-size: 100%;
     font-weight: 600;
-    border: none !important;
-    float: left;
-    width: 60%;
-    border: 0px solid #fff !important;
-    margin-left: 25px;
-    margin-top: 29px;
+    width: 100%;
+    height: [[setting:custommenuheight]];
+    line-height: [[setting:custommenuheight]];
+    background: [[setting:maincolor]] url([[pix:theme|shadtop]]) repeat-x bottom left; /*??*/
+    margin: 0px;
+    border-top: 1px solid #ffffff;
+    [[setting:custommenualign]]
+}
+
+#custommenu2 > div.yui3-menu {
+    margin-top: [[setting:custommenutop]];
+    display: inline-block;
+    text-align: left;
+}
+
+.yui3-skin-sam #page #custommenu2 .yui3-menu-label, 
+.yui3-skin-sam #page #custommenu2 .yui3-menuitem-content {
+    color: [[setting:headerlinkcolor]];
+}
+
+.yui3-skin-sam #custommenu2 .yui3-menu-horizontal .yui3-menu-label, 
+.yui3-skin-sam #custommenu2 .yui3-menu-horizontal .yui3-menuitem-content {
+    padding: 0 15px;
 }
 
 #custommenu2 * {
@@ -1340,7 +1376,7 @@ form .felement select, form .felement input  {
 }
 
 a.logged-in-link, #footerinner a.logged-in-link, .jcontrolsright .logininfo a.logged-in-link {
-    color: [[setting:loggedincolor]];
+    color: [[setting:loggedincolor]] !important;
 }
 
 #breadcrumb-container {
@@ -1348,6 +1384,16 @@ a.logged-in-link, #footerinner a.logged-in-link, .jcontrolsright .logininfo a.lo
     position: relative;
     left: [[setting:breadcrumbleft]];
     top: [[setting:breadcrumbtop]];
+}
+
+/** admin settings "sections" - header and separator **/
+h3.morphing-setting-header {
+    color: #1F465E;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border-bottom: 1px solid #1F465E;
+    padding-left: 20px;
 }
 
 /** Custom CSS **/

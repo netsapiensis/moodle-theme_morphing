@@ -4,7 +4,66 @@ require_once $CFG->dirroot . '/lib/adminlib.php';
 
 function morphing_process_css($css, $theme)
 {
-
+    //layout type
+    $type = !empty($theme->settings->layouttype) ? $theme->settings->layouttype : 'fluid';
+    switch ($type) {
+        case 'fixed':
+            $width = !empty($theme->settings->layoutfixedwidth) ? intval(str_replace(array('px', '%'), '', $theme->settings->layoutfixedwidth)) : 900;
+            if ($width < 0) {
+                $width = 900;
+            }
+            $width .= 'px';
+            break;
+        case 'fluid':
+        default:
+            $width = !empty($theme->settings->layoutfluidwidth) ? intval(str_replace(array('px', '%'), '', $theme->settings->layoutfluidwidth)) : 100;
+            if ($width < 0 || $width > 100) {
+                $width = 100;
+            }
+            $width .= '%';
+            break;
+    }
+    $css = str_replace('[[setting:layoutwidth]]', $width, $css);
+    
+    //theme main background color (body)
+    $bgcolor = !empty($theme->settings->mainbackgroundcolor) ? $theme->settings->mainbackgroundcolor : '#E0E0E0';
+    $css = str_replace('[[setting:mainbackgroundcolor]]', $bgcolor, $css);
+    
+    $image = !empty($theme->settings->mainbackgroundimage) ? $theme->settings->mainbackgroundimage: '';
+    if (!empty($image)) {
+        $image = 'url(' . $image . ')';
+    }
+    $css = str_replace('[[setting:mainbackgroundimage]]', $image, $css);
+    
+    //header link color
+    $headerlinkcolor = !empty($theme->settings->headerlinkcolor) ? $theme->settings->headerlinkcolor : '#E0E0E0';
+    $css = str_replace('[[setting:headerlinkcolor]]', $headerlinkcolor, $css);
+    
+    //block header color
+    $blockheadercolor = !empty($theme->settings->blockheadercolor) ? $theme->settings->blockheadercolor : '#1F465E';
+    $css = str_replace('[[setting:blockheadercolor]]', $blockheadercolor, $css);
+    
+    //block border color
+    $blockbordercolor = !empty($theme->settings->blockbordercolor) ? $theme->settings->blockbordercolor : '#1F465E';
+    $css = str_replace('[[setting:blockbordercolor]]', $blockbordercolor, $css);
+    
+    //custom menu height
+    $custommenuheight = !empty($theme->settings->custommenuheight) ? intval($theme->settings->custommenuheight) : 35;
+    $css = str_replace('[[setting:custommenuheight]]', $custommenuheight . 'px', $css);
+    $top = intval(($custommenuheight - 24) / 2);
+    $css = str_replace('[[setting:custommenutop]]', $top . 'px', $css);
+    
+    //custom menu alignment
+    $align = !empty($theme->settings->custommenualign) ? intval($theme->settings->custommenualign) : '';
+    if ($align == 'center') {
+        $align = 'text-align: center;';
+    } else {
+        $align = '';
+    }
+    $css = str_replace('[[setting:custommenualign]]', $align, $css);
+    
+    
+    
     // Set the font reference size
     $fontsizereference = !empty($theme->settings->fontsizereference) ? $theme->settings->fontsizereference : '13';
     $css = str_replace('[[setting:fontsizereference]]', $fontsizereference . 'px', $css);
@@ -242,6 +301,118 @@ class morphing_admin_setting_confightml extends admin_setting
                 <a href="' . $_url . '" onclick="return confirm(\''. get_string('resetconfirm', 'theme_morphing') . '\');">' . get_string('reset', 'theme_morphing') . '</a>
             </div>
             </div>';
+    }
+
+    /**
+     * Function called if setting updated - cleanup, cache reset, etc.
+     * @param string $functionname Sets the function name
+     * @return void
+     */
+    public function set_updatedcallback($functionname)
+    {
+        
+    }
+
+    /**
+     * Is setting related to query text - used when searching
+     * @param string $query
+     * @return bool
+     */
+    public function is_related($query)
+    {
+
+        return false;
+    }
+
+}
+
+class morphing_admin_setting_header extends admin_setting
+{
+
+    public function get_setting()
+    {
+        return '';
+    }
+
+    public function write_setting($data)
+    {
+        
+    }
+
+    public function __construct($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * Returns the fullname prefixed by the plugin
+     * @return string
+     */
+    public function get_full_name()
+    {
+        return '';
+    }
+
+    /**
+     * Returns the ID string based on plugin and name
+     * @return string
+     */
+    public function get_id()
+    {
+        return '';
+    }
+
+    /**
+     * @param bool $affectsmodinfo If true, changes to this setting will
+     *   cause the course cache to be rebuilt
+     */
+    public function set_affects_modinfo($affectsmodinfo)
+    {
+        
+    }
+
+    /**
+     * Returns the config if possible
+     *
+     * @return mixed returns config if successful else null
+     */
+    public function config_read($name)
+    {
+        return null;
+    }
+
+    /**
+     * Used to set a config pair and log change
+     *
+     * @param string $name
+     * @param mixed $value Gets converted to string if not null
+     * @return bool Write setting to config table
+     */
+    public function config_write($name, $value)
+    {
+        return true; // BC only
+    }
+
+    /**
+     * Returns default setting if exists
+     * @return mixed array or string depending on instance; NULL means no default, user must supply
+     */
+    public function get_defaultsetting()
+    {
+        return '';
+    }
+
+    /**
+     * Return part of form with setting
+     * This function should always be overwritten
+     *
+     * @param mixed $data array or string depending on setting
+     * @param string $query
+     * @return string
+     */
+    public function output_html($data, $query = '')
+    {
+        return '<h3 class="morphing-setting-header">' . $this->name . '</h3>';
     }
 
     /**
