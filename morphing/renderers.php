@@ -83,4 +83,43 @@ class theme_morphing_core_renderer extends core_renderer
 
         return $loggedinas;
     }
+    
+    public function render_custom_menu_item(custom_menu_item $menunode)
+    {
+        // Required to ensure we get unique trackable id's
+        static $submenucount = 0;
+        if ($menunode->has_children()) {
+            // If the child has menus render it as a sub menu
+            $submenucount++;
+            $content = html_writer::start_tag('li');
+            if ($menunode->get_url() !== null) {
+                $url = $menunode->get_url();
+            } else {
+                $url = '#cm_submenu_'.$submenucount;
+            }
+            $content .= html_writer::link($url, $menunode->get_text(), array('class'=>'yui3-menu-label', 'title'=>$menunode->get_title(), 'target' => '_blank'));
+            $content .= html_writer::start_tag('div', array('id'=>'cm_submenu_'.$submenucount, 'class'=>'yui3-menu custom_menu_submenu'));
+            $content .= html_writer::start_tag('div', array('class'=>'yui3-menu-content'));
+            $content .= html_writer::start_tag('ul');
+            foreach ($menunode->get_children() as $menunode) {
+                $content .= $this->render_custom_menu_item($menunode);
+            }
+            $content .= html_writer::end_tag('ul');
+            $content .= html_writer::end_tag('div');
+            $content .= html_writer::end_tag('div');
+            $content .= html_writer::end_tag('li');
+        } else {
+            // The node doesn't have children so produce a final menuitem
+            $content = html_writer::start_tag('li', array('class'=>'yui3-menuitem'));
+            if ($menunode->get_url() !== null) {
+                $url = $menunode->get_url();
+            } else {
+                $url = '#';
+            }
+            $content .= html_writer::link($url, $menunode->get_text(), array('class'=>'yui3-menuitem-content', 'title'=>$menunode->get_title(), 'target' => '_blank'));
+            $content .= html_writer::end_tag('li');
+        }
+        // Return the sub menu
+        return $content;
+    }
 }

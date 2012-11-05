@@ -1,14 +1,17 @@
 <?php
 
 require_once $CFG->dirroot . '/lib/adminlib.php';
+require_once dirname(__FILE__) . '/settingslib.php';
 
 function morphing_process_css($css, $theme)
 {
+    global $OUTPUT;
+    $s = new Morphing_Theme_Settings($theme);
     //layout type
-    $type = !empty($theme->settings->layouttype) ? $theme->settings->layouttype : 'fluid';
+    $type = $s->get('layouttype');
     switch ($type) {
         case 'fixed':
-            $width = !empty($theme->settings->layoutfixedwidth) ? intval(str_replace(array('px', '%'), '', $theme->settings->layoutfixedwidth)) : 900;
+            $width = intval(str_replace(array('px', '%'), '', $s->get('layoutfixedwidth')));
             if ($width < 0) {
                 $width = 900;
             }
@@ -16,7 +19,7 @@ function morphing_process_css($css, $theme)
             break;
         case 'fluid':
         default:
-            $width = !empty($theme->settings->layoutfluidwidth) ? intval(str_replace(array('px', '%'), '', $theme->settings->layoutfluidwidth)) : 100;
+            $width = intval(str_replace(array('px', '%'), '', $s->get('layoutfluidwidth')));
             if ($width < 0 || $width > 100) {
                 $width = 100;
             }
@@ -25,36 +28,23 @@ function morphing_process_css($css, $theme)
     }
     $css = str_replace('[[setting:layoutwidth]]', $width, $css);
     
-    //theme main background color (body)
-    $bgcolor = !empty($theme->settings->mainbackgroundcolor) ? $theme->settings->mainbackgroundcolor : '#E0E0E0';
-    $css = str_replace('[[setting:mainbackgroundcolor]]', $bgcolor, $css);
+    //apply each setting that can be applied directly, without further processing
+    $autoApply = array('mainbackgroundcolor', 'headerlinkcolor', 'blockheadercolor', 'blockbordercolor', 'fontcolor', 'headerbgc');
     
-    $image = !empty($theme->settings->mainbackgroundimage) ? $theme->settings->mainbackgroundimage: '';
+    $image = !empty($theme->settings->mainbackgroundimage) ? $theme->settings->mainbackgroundimage: $OUTPUT->pix_url('theme_background', 'theme');
     if (!empty($image)) {
         $image = 'url(' . $image . ')';
     }
     $css = str_replace('[[setting:mainbackgroundimage]]', $image, $css);
     
-    //header link color
-    $headerlinkcolor = !empty($theme->settings->headerlinkcolor) ? $theme->settings->headerlinkcolor : '#E0E0E0';
-    $css = str_replace('[[setting:headerlinkcolor]]', $headerlinkcolor, $css);
-    
-    //block header color
-    $blockheadercolor = !empty($theme->settings->blockheadercolor) ? $theme->settings->blockheadercolor : '#1F465E';
-    $css = str_replace('[[setting:blockheadercolor]]', $blockheadercolor, $css);
-    
-    //block border color
-    $blockbordercolor = !empty($theme->settings->blockbordercolor) ? $theme->settings->blockbordercolor : '#1F465E';
-    $css = str_replace('[[setting:blockbordercolor]]', $blockbordercolor, $css);
-    
     //custom menu height
-    $custommenuheight = !empty($theme->settings->custommenuheight) ? intval($theme->settings->custommenuheight) : 35;
+    $custommenuheight = intval($s->get('custommenuheight'));
     $css = str_replace('[[setting:custommenuheight]]', $custommenuheight . 'px', $css);
     $top = intval(($custommenuheight - 24) / 2);
     $css = str_replace('[[setting:custommenutop]]', $top . 'px', $css);
     
     //custom menu alignment
-    $align = !empty($theme->settings->custommenualign) ? intval($theme->settings->custommenualign) : '';
+    $align = $s->get('custommenualign');
     if ($align == 'center') {
         $align = 'text-align: center;';
     } else {
@@ -62,38 +52,30 @@ function morphing_process_css($css, $theme)
     }
     $css = str_replace('[[setting:custommenualign]]', $align, $css);
     
-    
-    
     // Set the font reference size
-    $fontsizereference = !empty($theme->settings->fontsizereference) ? $theme->settings->fontsizereference : '13';
+    $fontsizereference = intval($s->get('fontsizereference'));
     $css = str_replace('[[setting:fontsizereference]]', $fontsizereference . 'px', $css);
     
     //block title font size
-    $bfs = !empty($theme->settings->blocktitlefontsize) ? $theme->settings->blocktitlefontsize : '13';
+    $bfs = $s->get('blocktitlefontsize');
     $css = str_replace('[[setting:blocktitlefontsize]]', $bfs . 'px', $css);
     
     //breadcrumb font size
-    $bfs = !empty($theme->settings->breadcrumbfontsize) ? $theme->settings->breadcrumbfontsize : '13';
+    $bfs = $s->get('breadcrumbfontsize');
     $css = str_replace('[[setting:breadcrumbfontsize]]', $bfs . 'px', $css);
 
-    // default color
-    $fontcolor = !empty($theme->settings->fontcolor) ? $theme->settings->fontcolor : '#000000'; //default
-    $css = str_replace('[[setting:fontcolor]]', $fontcolor, $css);
-
+    
     // Set the page header background color
-    $headerbgc = !empty($theme->settings->headerbgc) ? $theme->settings->headerbgc : '#0A1F33'; // default 
-    $css = str_replace('[[setting:headerbgc]]', $headerbgc, $css);
-
+    $autoApply []= 'headerbgc';
     //background color
-    $bgc = !empty($theme->settings->backgroundcolor) ? $theme->settings->backgroundcolor : '#F7F6F1'; //default
-    $css = str_replace('[[setting:backgroundcolor]]', $bgc, $css);
-
+    $autoApply []= 'backgroundcolor';
+    
     // Set the region width
-    $regionwidth = !empty($theme->settings->regionwidth) ? $theme->settings->regionwidth : '200';
+    $regionwidth = $s->get('regionwidth');
     $css = morphing_set_regionwidth($css, $regionwidth);
     
     //set the block title alignement and offset
-    $blocktitlealign = !empty($theme->settings->blocktitlealign) ? $theme->settings->blocktitlealign : 'left';
+    $blocktitlealign = $s->get('blocktitlealign');
     $css = str_replace('[[setting:blocktitlealign]]', $blocktitlealign, $css);
     if ($blocktitlealign != 'right') { //if right alignment, there is no need for left padding
         $blocktitleleft = !empty($theme->settings->blocktitleleft) ? $theme->settings->blocktitleleft : 5;
@@ -101,70 +83,48 @@ function morphing_process_css($css, $theme)
     }
 
     //set the header height
-    $headerheight = (!empty($theme->settings->headerheight) && intval($theme->settings->headerheight) ? intval($theme->settings->headerheight) : 80) . 'px';
+    $headerheight = $s->get('headerheight') . 'px';
     $css = str_replace('[[setting:headerheight]]', $headerheight, $css);
 
     //set the logo position
-    $logotop = (!empty($theme->settings->logooffsettop) && intval($theme->settings->logooffsettop) ? intval($theme->settings->logooffsettop) : 15) . 'px';
+    $logotop = $s->get('logooffsettop') . 'px';
     $css = str_replace('[[setting:logotop]]', $logotop, $css);
-    $logoleft = (!empty($theme->settings->logooffsetleft) && intval($theme->settings->logooffsetleft) ? intval($theme->settings->logooffsetleft) : 105) . 'px';
+    $logoleft = $s->get('logooffsetleft') . 'px';
     $css = str_replace('[[setting:logoleft]]', $logoleft, $css);
 
     //breadcrumb height
-    $navbarheight = (!empty($theme->settings->breadcrumbheight) && intval($theme->settings->breadcrumbheight) ? intval($theme->settings->breadcrumbheight) : 35) . 'px';
+    $navbarheight = $s->get('breadcrumbheight') . 'px';
     $css = str_replace('[[setting:navheight]]', $navbarheight, $css);
     
     //breadcrumb left offset
-    $left = (!empty($theme->settings->breadcrumbleft) && intval($theme->settings->breadcrumbleft) ? intval($theme->settings->breadcrumbleft) : 15) . 'px';
+    $left = $s->get('breadcrumbleft') . 'px';
     $css = str_replace('[[setting:breadcrumbleft]]', $left, $css);
     
     //breadcrumb top offset
-    $top = (!empty($theme->settings->breadcrumbtop) && intval($theme->settings->breadcrumbtop) ? intval($theme->settings->breadcrumbtop) : 0) . 'px';
+    $top = $s->get('breadcrumbtop') . 'px';
     $css = str_replace('[[setting:breadcrumbtop]]', $top, $css);
 
     // Set the link color
-    $linkcolor = !empty($theme->settings->linkcolor) ? $theme->settings->linkcolor : '#113759';
-    $css = str_replace('[[setting:linkcolor]]', $linkcolor, $css);
+    $autoApply []= 'linkcolor';
     
     // Set the visited link color
-    $visitedlinkcolor = !empty($theme->settings->visitedlinkcolor) ? $theme->settings->visitedlinkcolor : '#113759';
-    $css = str_replace('[[setting:visitedlinkcolor]]', $visitedlinkcolor, $css);
+    $autoApply []= 'visitedlinkcolor';
 
     // Set the main color
-    if (!empty($theme->settings->maincolor)) {
-        $maincolor = $theme->settings->maincolor;
-    } else {
-        $maincolor = null;
-    }
-    $css = morphing_set_maincolor($css, $maincolor);
+    $autoApply []= 'maincolor';
     
     //set the logged in user link color
-    $loggedincolor = !empty($theme->settings->loggedincolor) ? $theme->settings->loggedincolor : '#00aeef';
-    $css = str_replace('[[setting:loggedincolor]]', $loggedincolor, $css);
+    $autoApply []= 'loggedincolor';
 
     // Set the custom CSS
-    if (!empty($theme->settings->customcss)) {
-        $customcss = $theme->settings->customcss;
-    } else {
-        $customcss = null;
+    $autoApply []= 'customcss';
+    
+    foreach($autoApply as $tag) {
+        $css = $s->apply($tag, $css);
     }
-    $css = morphing_set_customcss($css, $customcss);
-
-
+    
     return $css;
 }
-
-function morphing_set_maincolor($css, $maincolor)
-{
-    $tag = '[[setting:maincolor]]';
-    $replacement = $maincolor;
-    if (is_null($replacement)) {
-        $replacement = '#0a1f33';
-    }
-    $css = str_replace($tag, $replacement, $css);
-    return $css;
-}
-
 
 /**
  * Sets the region width variable in CSS
@@ -181,24 +141,6 @@ function morphing_set_regionwidth($css, $regionwidth)
     $css = str_replace($tag, $replacement . 'px', $css);
     $css = str_replace($doubletag, ($replacement * 2) . 'px', $css);
     $css = str_replace($tag, ($replacement + 10) . 'px', $css);
-    return $css;
-}
-
-/**
- * Sets the custom css variable in CSS
- *
- * @param string $css
- * @param mixed $customcss
- * @return string
- */
-function morphing_set_customcss($css, $customcss)
-{
-    $tag = '[[setting:customcss]]';
-    $replacement = $customcss;
-    if (is_null($replacement)) {
-        $replacement = '';
-    }
-    $css = str_replace($tag, $replacement, $css);
     return $css;
 }
 

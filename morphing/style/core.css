@@ -512,8 +512,43 @@ div.yui3-widget-bd h1.helpheading {
     line-height: [[setting:custommenuheight]];
     background: [[setting:maincolor]] url([[pix:theme|shadtop]]) repeat-x bottom left; /*??*/
     margin: 0px;
-    border-top: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
     [[setting:custommenualign]]
+}
+
+#custommenu2 div.javascript-disabled ul ul, #custommenu2 div.javascript-disabled ul div.yui3-menu {
+    display: none !important;
+}
+
+#custommenu2 > div.javascript-disabled > div.yui3-menu-content > ul > li {
+    float: left;
+    width: auto;
+    list-style-type: none;
+    list-style-image: none;
+    margin: 0;
+    padding: 0;
+}
+
+#custommenu2 > div.yui3-menu > div.yui3-menu-content > ul > li > a {
+    margin: -1px 0;
+    float: left;
+    width: auto;
+    text-decoration: none;
+    cursor: default;
+    display: block !important;
+    text-align: left;
+    white-space: nowrap;
+    padding: 0 15px;
+    line-height: 2;
+}
+
+#custommenu2 > div.javascript-disabled > div.yui3-menu-content {
+    font-size: 93% !important;
+}
+
+#custommenu2 > div.javascript-disabled > div.yui3-menu-content > ul {
+    margin: 0;
+    padding: 0;
 }
 
 #custommenu2 > div.yui3-menu {
@@ -778,6 +813,13 @@ div.subscribelink {
 }
 
 /**tables and fields and foms oh my! **/
+
+fieldset .form-description p span.pre {
+    margin: 0;
+    font-family: monospace;
+    font-weight: bold;
+    text-decoration: underline;
+}
 
 .mform fieldset,fieldset.clearfix {
     border: 1px solid #dadada !important;

@@ -9,8 +9,8 @@ $string['alwayslangmenudesc'] = 'Select this option to ALWAYS display lang menu.
 
 $string['backgroundcolor'] = 'Block background color';
 $string['backgroundcolordesc'] = 'This sets the block background color for the theme.';
-$string['backgroundimage'] = 'Block background image';
-$string['backgroundimagedesc'] = 'This sets the background image for the theme. Enter an URL to a image (i.e., http://www.somesite/animage.png)';
+$string['backgroundimage'] = 'Theme background image';
+$string['backgroundimagedesc'] = 'This sets the background image for the theme. Enter an URL to a image (i.e., http://www.somesite/animage.png). <br />As an alternative, you can also overwrite the file <span class="pre">%moodle_root%/theme/morphing/pix/theme_background.png</span> with your custom image';
 $string['block'] = 'Block';
 $string['blockbordercolor'] = 'Block border color';
 $string['blockbordercolordesc'] = 'Sets the border color of the blocks';
@@ -62,8 +62,8 @@ $string['headerheight'] = 'Header height';
 $string['headerheightdesc'] = 'Set the height of the header, in px (the header area is considered from the top of the page until the main navigation bar)';
 $string['headerlinkcolor'] = 'Header link color';
 $string['headerlinkcolordesc'] = 'Default color for the links within the header of the site';
-$string['headersecondimage'] = 'Header second logo';
-$string['headersecondimagedesc'] = 'Add another header image to this theme by entering the URL to the image (i.e., http://www.somesite/animage.png). A transparent .png will work best.';
+$string['headersecondimage'] = 'Header second logo URL';
+$string['headersecondimagedesc'] = 'Add another header image to this theme by entering the URL to the image (i.e., http://www.somesite/animage.png). A transparent .png will work best.<br />As an alternative, you can also overwrite the file <span class="pre">%moodle_root%/theme/morphing/pix/header_logo2.png</span> with your custom image';
 
 $string['layoutfixedwidth'] = 'Fixed width';
 $string['layoutfixedwidthdesc'] = 'Set the width, in px, for the Fixed Width layout type. This will work if you have set the Fixed Width layout type';
@@ -77,12 +77,13 @@ $string['linkcolor'] = 'Link color';
 $string['linkcolordesc'] = 'Set the color of links in the theme, use html hex code.';
 $string['loggedincolor'] = 'Logged in color';
 $string['loggedincolordesc'] = 'Set the color for the logged user link ("You are logged in as ...")';
-$string['logo'] = 'Logo URL';
-$string['logodesc'] = 'Change the logo of this theme by entering the URL to a new one (i.e., http://www.somesite/animage.png). As a reference, the default logo is 300px wide by 80px high. A transparent .png will work best.';
+$string['logo'] = 'Logo';
 $string['logooffsetleft'] = 'Logo left offset';
 $string['logooffsetleftdesc'] = 'The distance, in px, between the left edge of the logo to the left edge of the header (of the page)';
 $string['logooffsettop'] = 'Logo top offset';
 $string['logooffsettopdesc'] = 'The distance, in px, between the upper edge of the logo to the upper edge of the header (of the page)';
+$string['logourl'] = 'Logo URL';
+$string['logourldesc'] = 'Change the logo of this theme by entering the URL to a new one (i.e., http://www.somesite/animage.png). As a reference, the default logo is 300px wide by 80px high. A transparent .png will work best.<br />As an alternative, you can also overwrite the file <span class="pre">%moodle_root%/theme/morphing/pix/header_logo.png</span> with your custom logo';
 
 $string['mainbackgroundcolor'] = 'Theme background color';
 $string['mainbackgroundcolordesc'] = 'Choose the default background color for this theme.';
