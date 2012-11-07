@@ -197,11 +197,13 @@ class Morphing_Theme_Settings
             ),
             'layoutfluidwidth' => array(
                 '_section' => 'general',
-                'default' => '100%'
+                'default' => '100',
+                'extra' => '/^([0-9]{1,3})$/'
             ),
             'layoutfixedwidth' => array(
                 '_section' => 'general',
-                'default' => '900px'
+                'default' => '900',
+                'extra' => '/^[0-9][0-9]*$/'
             ),
             'mainbackgroundcolor' => array(
                 '_section' => 'general',
@@ -225,7 +227,7 @@ class Morphing_Theme_Settings
             'headerheight' => array(
                 '_section' => 'header',
                 'default' => 110,
-                'extra' => PARAM_INT
+                'extra' => '/^[0-9][0-9]*$/'
             ),
             'headerlinkcolor' => array(
                 '_section' => 'header',
@@ -248,12 +250,12 @@ class Morphing_Theme_Settings
             'logooffsetleft' => array(
                 '_section' => 'logo',
                 'default' => 105,
-                'extra' => PARAM_INT
+                'extra' => '/^[0-9][0-9]*$/'
             ),
             'logooffsettop' => array(
                 '_section' => 'logo',
                 'default' => 15,
-                'extra' => PARAM_INT
+                'extra' => '/^-?[0-9][0-9]*$/'
             ),
             'breadcrumbfontsize' => array(
                 '_section' => 'logo',
@@ -264,17 +266,17 @@ class Morphing_Theme_Settings
             'breadcrumbheight' => array(
                 '_section' => 'logo',
                 'default' => 35,
-                'extra' => PARAM_INT
+                'extra' => '/^[0-9][0-9]*$/'
             ),
             'breadcrumbleft' => array(
                 '_section' => 'logo',
                 'default' => 15,
-                'extra' => PARAM_INT
+                'extra' => '/^-?[0-9][0-9]*$/'
             ),
             'breadcrumbtop' => array(
                 '_section' => 'logo',
                 'default' => 0,
-                'extra' => PARAM_INT
+                'extra' => '/^-?[0-9][0-9]*$/'
             ),
             //end logo
             //block settings
@@ -300,7 +302,7 @@ class Morphing_Theme_Settings
             'blocktitleleft' => array(
                 '_section' => 'block',
                 'default' => 5,
-                'extra' => PARAM_INT
+                'extra' => '/^-?[0-9][0-9]*$/'
             ),
             'backgroundcolor' => array(
                 '_section' => 'block',
@@ -346,7 +348,7 @@ class Morphing_Theme_Settings
             'custommenuheight' => array(
                 '_section' => 'custommenu',
                 'default' => 35,
-                'extra' => PARAM_INT
+                'extra' => '/^[0-9][0-9]*$/'
             ),
             'custommenuitems' => array(
                 '_section' => 'custommenu',

@@ -66,9 +66,9 @@ $string['headersecondimage'] = 'Header second logo URL';
 $string['headersecondimagedesc'] = 'Add another header image to this theme by entering the URL to the image (i.e., http://www.somesite/animage.png). A transparent .png will work best.<br />As an alternative, you can also overwrite the file <span class="pre">%moodle_root%/theme/morphing/pix/header_logo2.png</span> with your custom image';
 
 $string['layoutfixedwidth'] = 'Fixed width';
-$string['layoutfixedwidthdesc'] = 'Set the width, in px, for the Fixed Width layout type. This will work if you have set the Fixed Width layout type';
+$string['layoutfixedwidthdesc'] = 'Set the width, in px, for the Fixed Width layout type. This will work if you have set the Fixed Width layout type. This must be a number higher than 0';
 $string['layoutfluidwidth'] = 'Fluid width';
-$string['layoutfluidwidthdesc'] = 'Set the width, in percentage, for the Fluid Width layout type. 100% means that the content will stretch to fill out the entire window width';
+$string['layoutfluidwidthdesc'] = 'Set the width, in percentage, for the Fluid Width layout type. 100% means that the content will stretch to fill out the entire window width. This must be a number higher than 0.';
 $string['layouttype'] = 'Layout type';
 $string['layouttypedesc'] = 'Choose a fluid or fixed witdth layout. A fluid layout will expand or contract depending on the size of the viewers display';
 $string['layouttypefixed'] = 'Fixed width';

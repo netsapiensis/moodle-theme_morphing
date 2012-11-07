@@ -1438,5 +1438,55 @@ h3.morphing-setting-header {
     padding-left: 20px;
 }
 
+fieldset.error {
+    border: 1px dotted red;
+    padding: 10px;
+    margin-top: -10px;
+}
+
+fieldset.error legend {
+    color: #880000;
+    padding: 0 5px;
+}
+.red, .notifyproblem {
+    color: #880000;
+}
+
+.notifyproblem {
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px dotted red;
+}
+
+@keyframes err_animation {
+    from {background: red;}
+    to {background: white;}
+}
+
+@-moz-keyframes err_animation /* Firefox */
+{
+    from {background: red;}
+    to {background: white;}
+}
+
+@-webkit-keyframes err_animation /* Safari and Chrome */
+{
+    from {background: red;}
+    to {background: white;}
+}
+
+@-o-keyframes err_animation /* Opera */
+{
+    from {background: red;}
+    to {background: white;}
+}
+
+.notifyproblem {
+    animation: err_animation 2s;
+    -moz-animation: err_animation 2s; /* Firefox */
+    -webkit-animation: err_animation 2s; /* Safari and Chrome */
+    -o-animation: err_animation 2s; /* Opera */
+}
+
 /** Custom CSS **/
 [[setting:customcss]]

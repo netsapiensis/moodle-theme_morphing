@@ -20,9 +20,6 @@ function morphing_process_css($css, $theme)
         case 'fluid':
         default:
             $width = intval(str_replace(array('px', '%'), '', $s->get('layoutfluidwidth')));
-            if ($width < 0 || $width > 100) {
-                $width = 100;
-            }
             $width .= '%';
             break;
     }
