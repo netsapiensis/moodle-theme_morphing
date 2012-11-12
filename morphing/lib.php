@@ -88,6 +88,12 @@ function morphing_process_css($css, $theme)
     $css = str_replace('[[setting:logotop]]', $logotop, $css);
     $logoleft = $s->get('logooffsetleft') . 'px';
     $css = str_replace('[[setting:logoleft]]', $logoleft, $css);
+    
+    //set the second logo position
+    $logotop = $s->get('secondlogooffsettop') . 'px';
+    $css = str_replace('[[setting:secondlogotop]]', $logotop, $css);
+    $logoleft = $s->get('secondlogooffsetleft') . 'px';
+    $css = str_replace('[[setting:secondlogoleft]]', $logoleft, $css);
 
     //breadcrumb height
     $navbarheight = $s->get('breadcrumbheight') . 'px';

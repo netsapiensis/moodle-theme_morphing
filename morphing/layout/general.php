@@ -7,7 +7,7 @@ $hassidepost = $PAGE->blocks->region_has_content('side-post', $OUTPUT);
 $showsidepre = $hassidepre && !$PAGE->blocks->region_completely_docked('side-pre', $OUTPUT);
 $showsidepost = $hassidepost && !$PAGE->blocks->region_completely_docked('side-post', $OUTPUT);
 
-$custommenu = $OUTPUT->custom_menu();
+$custommenu = $OUTPUT->morphing_custom_menu();
 $hascustommenu = (empty($PAGE->layout_options['nocustommenu']) && !empty($custommenu));
 
 $showcustommenu = !empty($PAGE->theme->settings->custommenudisplay) ? $PAGE->theme->settings->custommenudisplay : 'none';

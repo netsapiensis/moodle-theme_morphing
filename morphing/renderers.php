@@ -122,4 +122,29 @@ class theme_morphing_core_renderer extends core_renderer
         // Return the sub menu
         return $content;
     }
+    
+    /**
+     * Returns the custom menu if one has been set
+     *
+     * A custom menu can be configured by browsing to
+     *    Settings: Administration > Appearance > Themes > Theme settings
+     * and then configuring the custommenu config setting as described.
+     *
+     * @param string $custommenuitems - custom menuitems set by theme instead of global theme settings
+     * @return string
+     */
+    public function morphing_custom_menu($custommenuitems = '') {
+        
+        global $PAGE;
+        
+        if (empty($custommenuitems) && !empty($PAGE->theme->settings->custommenuitems)) {
+            $custommenuitems = $PAGE->theme->settings->custommenuitems;
+        }
+        
+        if (empty($custommenuitems)) {
+            return '';
+        }
+        $custommenu = new custom_menu($custommenuitems, current_language());
+        return $this->render_custom_menu($custommenu);
+    }
 }

@@ -257,6 +257,16 @@ class Morphing_Theme_Settings
                 'default' => 15,
                 'extra' => '/^-?[0-9][0-9]*$/'
             ),
+            'secondlogooffsetleft' => array(
+                '_section' => 'logo',
+                'default' => 425,
+                'extra' => '/^[0-9][0-9]*$/'
+            ),
+            'secondlogooffsettop' => array(
+                '_section' => 'logo',
+                'default' => 15,
+                'extra' => '/^-?[0-9][0-9]*$/'
+            ),
             'breadcrumbfontsize' => array(
                 '_section' => 'logo',
                 'default' => 12,
@@ -352,7 +362,7 @@ class Morphing_Theme_Settings
             ),
             'custommenuitems' => array(
                 '_section' => 'custommenu',
-                'raw' => new admin_setting_configtextarea('custommenuitems', get_string('custommenuitemsdesc', 'theme_morphing') . '<br />' . new lang_string('custommenuitems', 'admin'), new lang_string('configcustommenuitems', 'admin'), '', PARAM_TEXT, '50', '10')
+                'raw' => new admin_setting_configtextarea('theme_morphing/custommenuitems', get_string('custommenuitemsdesc', 'theme_morphing') . '<br />' . new lang_string('custommenuitems', 'admin'), new lang_string('configcustommenuitems', 'admin'), '', PARAM_TEXT, '50', '10')
             ),
             'custommenualign' => array(
                 '_section' => 'custommenu',

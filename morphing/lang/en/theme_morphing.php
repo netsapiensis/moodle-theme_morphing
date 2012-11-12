@@ -43,7 +43,7 @@ $string['custommenudisplaydesc'] = 'Select where to display the custom menu';
 $string['custommenuheight'] = 'Custom menu height';
 $string['custommenuheightdesc'] = 'Set the height on the custom menu, in px';
 
-$string['custommenuitemsdesc'] = 'This is the same as default setting from Theme General settings. Changing it here will imply a change in the general settings and vice-versa';
+$string['custommenuitemsdesc'] = 'This is not the same as the default setting from Theme General settings. This will only be show up when you use Theme Morphing.';
 
 $string['fontcolor'] = 'Default font color';
 $string['fontcolordesc'] = 'This allows you to set the default font color for this theme.';
@@ -102,6 +102,11 @@ $string['regionwidthdesc'] = 'This sets the width of the two block regions that 
 $string['reset'] = 'Reset all settings to default';
 $string['resetconfirm'] = 'Are you sure you want to reset all theme settings to their default values ?';
 $string['resettitle'] = 'Reset';
+
+$string['secondlogooffsetleft'] = 'Second logo left offset';
+$string['secondlogooffsetleftdesc'] = 'The distance, in px, between the left edge of the second logo to the left edge of the header (of the page)';
+$string['secondlogooffsettop'] = 'Second logo top offset';
+$string['secondlogooffsettopdesc'] = 'The distance, in px, between the upper edge of the second logo to the upper edge of the header (of the page)';
 
 $string['visitedlinkcolor'] = 'Visited link color';
 $string['visitedlinkcolordesc'] = 'This allows you to change the color for the visited links (css :visited). Unfortunately there is now way to preview this change.';

@@ -89,15 +89,25 @@ a:focus {
 }
 
 #headerinner div.logo-container {
-    display: inline-block;
-    position: absolute;
-    top: [[setting:logotop]];
-    left: [[setting:logoleft]];
+    position: relative;
     vertical-align: top;
 }
 
 #headerinner div.logo-container * {
     vertical-align: top;
+}
+
+.logo-container a.logo-link {
+    position: absolute;
+    display: inline-block;
+    top: [[setting:logotop]];
+    left: [[setting:logoleft]];
+}
+
+.logo-container img#second_logo {
+    position: absolute;
+    top: [[setting:secondlogotop]];
+    left: [[setting:secondlogoleft]];
 }
 
 #logo {
