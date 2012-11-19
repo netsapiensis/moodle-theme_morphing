@@ -1396,6 +1396,8 @@ form .felement select, form .felement input  {
 #page-content #region-main {margin-left:[[setting:regionwidthdouble]];}
 .side-pre-only #page-content #region-post-box {margin-left:-[[setting:regionwidth]];}
 .side-pre-only #page-content #region-main {margin-left:[[setting:regionwidth]];}
+.side-post-only #page-content #region-post-box {margin-left:-[[setting:regionwidth]];}
+.side-post-only #page-content #region-main {margin-left:[[setting:regionwidth]];}
 
 .form-description {
     color: [[setting:fontcolor]];
