@@ -176,7 +176,7 @@ class Morphing_Theme_Settings
                 '_section' => 'general',
                 'type' => 'colourpicker',
                 'default' => '#1f465e',
-                'extra' => array('selector' => 'div#jcontrols_button,#footerwrapper,.block div.header,#dock', 'style' => 'backgroundColor')
+                'extra' => array('selector' => '#custommenu2, div#jcontrols_button,#footerwrapper,.block div.header,#dock', 'style' => 'backgroundColor')
             ),
             'loggedincolor' => array(
                 '_section' => 'general',

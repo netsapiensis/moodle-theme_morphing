@@ -88,7 +88,7 @@ $string['logourldesc'] = 'Change the logo of this theme by entering the URL to a
 $string['mainbackgroundcolor'] = 'Theme background color';
 $string['mainbackgroundcolordesc'] = 'Choose the default background color for this theme.';
 $string['maincolor'] = 'Main color';
-$string['maincolordesc'] = 'Set the color hex code of the header, dock bar and other areas. Looks best as a dark or saturated color.';
+$string['maincolordesc'] = 'Set the color hex code of the menu (and custom ment), dock bar and other areas. Looks best as a dark or saturated color.';
 $string['miscellaneous'] = 'Miscellaneous';
 
 $string['none'] = 'None';
