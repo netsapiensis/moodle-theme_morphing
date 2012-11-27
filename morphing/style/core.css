@@ -325,6 +325,10 @@ span.arrow.sep {
     box-shadow: -1px 1px 3px #ccc;
 }
 
+#page-content #region-main-box .region-content {
+    padding: 0px;
+}
+
 /** Block styles **/
 
 .block {
@@ -872,7 +876,6 @@ table#categoryquestions th a {
 .generaltable .header a,.forumheaderlist .header a, th.header.questionnametext a, th.header a {
     border: none;
     color: #fff !important;
-    font-size: 90%;
     text-decoration: none;
     padding: 5px;
 }
@@ -1429,8 +1432,10 @@ form .felement select, form .felement input  {
     margin: 0 auto;
 }
 
-a.logged-in-link, #footerinner a.logged-in-link, .jcontrolsright .logininfo a.logged-in-link {
-    color: [[setting:loggedincolor]] !important;
+#headerwrap a.logged-in-link, 
+#footerinner a.logged-in-link, 
+#jcontrols_button .jcontrolsright .logininfo a.logged-in-link {
+    color: [[setting:loggedincolor]];
 }
 
 #breadcrumb-container {
@@ -1498,6 +1503,10 @@ fieldset.error legend {
     -moz-animation: err_animation 2s; /* Firefox */
     -webkit-animation: err_animation 2s; /* Safari and Chrome */
     -o-animation: err_animation 2s; /* Opera */
+}
+
+table#user-grades, .user-grade {
+    font-size: 100%;
 }
 
 /** Custom CSS **/
