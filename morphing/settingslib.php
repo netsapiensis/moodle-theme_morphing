@@ -114,18 +114,33 @@ class Morphing_Theme_Settings
         return $s['default'];
     }
     
-    public function apply($tag, $css)
+    /**
+     * 
+     * replaces the $tag in css file with the actual setting value
+     * 
+     * @param string $tag the tag from the css file
+     * @param string $css current css being processed
+     * @param callable $filter filter function to apply to the setting value
+     * @param string $suffix suffix to append to the setting value, e.g 'px'
+     * 
+     * @return Morphing_Theme_Settings
+     */
+    public function apply($tag, & $css, $filter = null, $suffix = '')
     {
         $value = $this->get($tag);
+        if (is_callable($filter)) {
+            $value = $filter($value);
+        }
+        $value .= $suffix;
         
-        return str_replace("[[setting:{$tag}]]", $value, $css);
+        $css = str_replace("[[setting:{$tag}]]", $value, $css);
+        
+        return $this;
     }
     
     public function getSettingsSection($name)
     {
-        $return = array(
-            new morphing_admin_setting_header($this->_s($name))
-        );
+        $return = array();
         
         foreach ($this->_settings as $k => $s) {
             if (isset($s['_section']) && $s['_section'] == $name) {
@@ -136,6 +151,18 @@ class Morphing_Theme_Settings
         return $return;
     }
     
+    /**
+     * get all sections keys available
+     * @return type
+     */
+    public function getAllTabs()
+    {
+        $_ = create_function('$a', 'return $a["_section"];');
+        $tabs = array_map($_, $this->_settings);
+        
+        return array_unique($tabs);
+    }
+    
     protected function _init()
     {   
         $sizes = array();
@@ -144,6 +171,7 @@ class Morphing_Theme_Settings
         }
         $this->_settings = array(
             'reset_everything' => array(
+                '_section' => 'reset',
                 'type' => 'html',
                 'title' => 'resettitle'
             ),

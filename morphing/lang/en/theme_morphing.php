@@ -99,9 +99,10 @@ $string['region-side-post'] = 'Right';
 $string['region-side-pre'] = 'Left';
 $string['regionwidth'] = 'Block width';
 $string['regionwidthdesc'] = 'This sets the width of the two block regions that form the left and right columns.';
-$string['reset'] = 'Reset all settings to default';
+$string['reset'] = 'Reset';
 $string['resetconfirm'] = 'Are you sure you want to reset all theme settings to their default values ?';
-$string['resettitle'] = 'Reset';
+$string['resetdone'] = 'All theme settings have been reset to default';
+$string['resettitle'] = 'Reset all settings to default';
 
 $string['secondlogooffsetleft'] = 'Second logo left offset';
 $string['secondlogooffsetleftdesc'] = 'The distance, in px, between the left edge of the second logo to the left edge of the header (of the page)';

@@ -100,14 +100,14 @@ a:focus {
 .logo-container a.logo-link {
     position: absolute;
     display: inline-block;
-    top: [[setting:logotop]];
-    left: [[setting:logoleft]];
+    top: [[setting:logooffsettop]];
+    left: [[setting:logooffsetleft]];
 }
 
 .logo-container img#second_logo {
     position: absolute;
-    top: [[setting:secondlogotop]];
-    left: [[setting:secondlogoleft]];
+    top: [[setting:secondlogooffsettop]];
+    left: [[setting:secondlogooffsetleft]];
 }
 
 #logo {
@@ -171,8 +171,8 @@ div.jcontrolsleft {
 }
 
 div#jcontrols_button, div.jcontrolsleft, div.jcontrolsright, .jcontrolsright .logininfo, .breadcrumb ul {
-    height: [[setting:navheight]];
-    line-height: [[setting:navheight]];
+    height: [[setting:breadcrumbheight]];
+    line-height: [[setting:breadcrumbheight]];
 }
 
 div.jcontrolsright {
@@ -297,7 +297,7 @@ div#jcontrols_button2 span.arrow.sep {
     background-position: 50% -4px;
     display: inline-block;
     width: 16px;
-    line-height: [[setting:navheight]];
+    line-height: [[setting:breadcrumbheight]];
 
 }
 
@@ -1507,6 +1507,10 @@ fieldset.error legend {
 
 table#user-grades, .user-grade {
     font-size: 100%;
+}
+
+.morphing-settings-submit-hidden form#adminsettings .form-buttons {
+    display: none;
 }
 
 /** Custom CSS **/

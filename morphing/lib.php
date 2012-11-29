@@ -26,7 +26,7 @@ function morphing_process_css($css, $theme)
     $css = str_replace('[[setting:layoutwidth]]', $width, $css);
     
     //apply each setting that can be applied directly, without further processing
-    $autoApply = array('mainbackgroundcolor', 'headerlinkcolor', 'blockheadercolor', 'blockbordercolor', 'fontcolor', 'headerbgc');
+    $autoapply = array('mainbackgroundcolor', 'headerlinkcolor', 'blockheadercolor', 'blockbordercolor', 'fontcolor', 'headerbgc');
     
     $image = !empty($theme->settings->mainbackgroundimage) ? $theme->settings->mainbackgroundimage: $OUTPUT->pix_url('theme_background', 'theme');
     if (!empty($image)) {
@@ -50,22 +50,15 @@ function morphing_process_css($css, $theme)
     $css = str_replace('[[setting:custommenualign]]', $align, $css);
     
     // Set the font reference size
-    $fontsizereference = intval($s->get('fontsizereference'));
-    $css = str_replace('[[setting:fontsizereference]]', $fontsizereference . 'px', $css);
-    
-    //block title font size
-    $bfs = $s->get('blocktitlefontsize');
-    $css = str_replace('[[setting:blocktitlefontsize]]', $bfs . 'px', $css);
-    
-    //breadcrumb font size
-    $bfs = $s->get('breadcrumbfontsize');
-    $css = str_replace('[[setting:breadcrumbfontsize]]', $bfs . 'px', $css);
+    $s->apply('fontsizereference', $css, 'intval', 'px')
+            ->apply('blocktitlefontsize', $css, 'intval', 'px')
+            ->apply('breadcrumbfontsize', $css, 'intval', 'px');
 
     
     // Set the page header background color
-    $autoApply []= 'headerbgc';
+    $autoapply []= 'headerbgc';
     //background color
-    $autoApply []= 'backgroundcolor';
+    $autoapply []= 'backgroundcolor';
     
     // Set the region width
     $regionwidth = $s->get('regionwidth');
@@ -80,50 +73,32 @@ function morphing_process_css($css, $theme)
     }
 
     //set the header height
-    $headerheight = $s->get('headerheight') . 'px';
-    $css = str_replace('[[setting:headerheight]]', $headerheight, $css);
-
-    //set the logo position
-    $logotop = $s->get('logooffsettop') . 'px';
-    $css = str_replace('[[setting:logotop]]', $logotop, $css);
-    $logoleft = $s->get('logooffsetleft') . 'px';
-    $css = str_replace('[[setting:logoleft]]', $logoleft, $css);
-    
-    //set the second logo position
-    $logotop = $s->get('secondlogooffsettop') . 'px';
-    $css = str_replace('[[setting:secondlogotop]]', $logotop, $css);
-    $logoleft = $s->get('secondlogooffsetleft') . 'px';
-    $css = str_replace('[[setting:secondlogoleft]]', $logoleft, $css);
-
-    //breadcrumb height
-    $navbarheight = $s->get('breadcrumbheight') . 'px';
-    $css = str_replace('[[setting:navheight]]', $navbarheight, $css);
-    
-    //breadcrumb left offset
-    $left = $s->get('breadcrumbleft') . 'px';
-    $css = str_replace('[[setting:breadcrumbleft]]', $left, $css);
-    
-    //breadcrumb top offset
-    $top = $s->get('breadcrumbtop') . 'px';
-    $css = str_replace('[[setting:breadcrumbtop]]', $top, $css);
+    $s->apply('headerheight', $css, 'intval', 'px')
+            ->apply('logooffsettop', $css, 'intval', 'px')
+            ->apply('logooffsetleft', $css, 'intval', 'px')
+            ->apply('secondlogooffsettop', $css, 'intval', 'px')
+            ->apply('secondlogooffsetleft', $css, 'intval', 'px')
+            ->apply('breadcrumbheight', $css, 'intval', 'px')
+            ->apply('breadcrumbleft', $css, 'intval', 'px')
+            ->apply('breadcrumbtop', $css, 'intval', 'px');
 
     // Set the link color
-    $autoApply []= 'linkcolor';
+    $autoapply []= 'linkcolor';
     
     // Set the visited link color
-    $autoApply []= 'visitedlinkcolor';
+    $autoapply []= 'visitedlinkcolor';
 
     // Set the main color
-    $autoApply []= 'maincolor';
+    $autoapply []= 'maincolor';
     
     //set the logged in user link color
-    $autoApply []= 'loggedincolor';
+    $autoapply []= 'loggedincolor';
 
     // Set the custom CSS
-    $autoApply []= 'customcss';
+    $autoapply []= 'customcss';
     
-    foreach($autoApply as $tag) {
-        $css = $s->apply($tag, $css);
+    foreach($autoapply as $tag) {
+        $s->apply($tag, $css);
     }
     
     return $css;
@@ -147,14 +122,21 @@ function morphing_set_regionwidth($css, $regionwidth)
     return $css;
 }
 
-class morphing_admin_setting_confightml extends admin_setting
+/**
+ * just display a snippet of html code.
+ * the file displayed is located in setting_html/{$name}.php
+ */
+class theme_morphing_admin_setting_confightml extends admin_setting
 {
-
     public function get_setting()
     {
-        return 'mama';
+        return '';
     }
 
+    /**
+     * just do nothing
+     * @param type $data
+     */
     public function write_setting($data)
     {
         
@@ -164,6 +146,8 @@ class morphing_admin_setting_confightml extends admin_setting
     {
         $this->name = $name;
         $this->visiblename = $visiblename;
+        $this->description = $description;
+        $this->defaultsetting = $defaultsetting;
     }
 
     /**
@@ -225,8 +209,7 @@ class morphing_admin_setting_confightml extends admin_setting
     }
 
     /**
-     * Return part of form with setting
-     * This function should always be overwritten
+     * Return part of form with setting - includes the file setting_html/{$this->name}.php
      *
      * @param mixed $data array or string depending on setting
      * @param string $query
@@ -234,18 +217,20 @@ class morphing_admin_setting_confightml extends admin_setting
      */
     public function output_html($data, $query = '')
     {
-        global $PAGE;
-        $url = clone $PAGE->url;
-        if ($url instanceof moodle_url) {
-            $url->param('theme_morphing_reset_all', 1);
+        global $CFG;
+        $contents = '';
+        $phpname = basename($this->name);
+        
+        if (empty($phpname) || ! file_exists($CFG->dirroot . "/theme/morphing/setting_html/{$phpname}.php")) {
+            return '';
         }
-        $_url = $url->__toString();
         
-        return '<div class="form-item clearfix"><div class="form-label"><label>' . $this->visiblename . '</label></div>
-            <div class="form-setting">
-                <a href="' . $_url . '" onclick="return confirm(\''. get_string('resetconfirm', 'theme_morphing') . '\');">' . get_string('reset', 'theme_morphing') . '</a>
-            </div>
-            </div>';
+        ob_start();
+        include $CFG->dirroot . '/theme/morphing/setting_html/' . $phpname . '.php';
+        $contents = ob_get_contents();
+        
+        ob_end_clean();
+        return $contents;
     }
 
     /**
@@ -268,117 +253,4 @@ class morphing_admin_setting_confightml extends admin_setting
 
         return false;
     }
-
-}
-
-class morphing_admin_setting_header extends admin_setting
-{
-
-    public function get_setting()
-    {
-        return '';
-    }
-
-    public function write_setting($data)
-    {
-        
-    }
-
-    public function __construct($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * Returns the fullname prefixed by the plugin
-     * @return string
-     */
-    public function get_full_name()
-    {
-        return '';
-    }
-
-    /**
-     * Returns the ID string based on plugin and name
-     * @return string
-     */
-    public function get_id()
-    {
-        return '';
-    }
-
-    /**
-     * @param bool $affectsmodinfo If true, changes to this setting will
-     *   cause the course cache to be rebuilt
-     */
-    public function set_affects_modinfo($affectsmodinfo)
-    {
-        
-    }
-
-    /**
-     * Returns the config if possible
-     *
-     * @return mixed returns config if successful else null
-     */
-    public function config_read($name)
-    {
-        return null;
-    }
-
-    /**
-     * Used to set a config pair and log change
-     *
-     * @param string $name
-     * @param mixed $value Gets converted to string if not null
-     * @return bool Write setting to config table
-     */
-    public function config_write($name, $value)
-    {
-        return true; // BC only
-    }
-
-    /**
-     * Returns default setting if exists
-     * @return mixed array or string depending on instance; NULL means no default, user must supply
-     */
-    public function get_defaultsetting()
-    {
-        return '';
-    }
-
-    /**
-     * Return part of form with setting
-     * This function should always be overwritten
-     *
-     * @param mixed $data array or string depending on setting
-     * @param string $query
-     * @return string
-     */
-    public function output_html($data, $query = '')
-    {
-        return '<h3 class="morphing-setting-header">' . $this->name . '</h3>';
-    }
-
-    /**
-     * Function called if setting updated - cleanup, cache reset, etc.
-     * @param string $functionname Sets the function name
-     * @return void
-     */
-    public function set_updatedcallback($functionname)
-    {
-        
-    }
-
-    /**
-     * Is setting related to query text - used when searching
-     * @param string $query
-     * @return bool
-     */
-    public function is_related($query)
-    {
-
-        return false;
-    }
-
 }

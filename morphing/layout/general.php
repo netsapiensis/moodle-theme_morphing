@@ -24,6 +24,9 @@ switch($showcustommenu) {
         break;
 }
 
+$logininfo = $OUTPUT->login_info();
+$logininfo = $OUTPUT->morphing_loggedin_color($logininfo);
+
 $logo = (!empty($PAGE->theme->settings->logo) ? $PAGE->theme->settings->logo : $OUTPUT->pix_url('header_logo', 'theme'));
 $secondlogo = (!empty($PAGE->theme->settings->secondlogo) ? $PAGE->theme->settings->secondlogo : $OUTPUT->pix_url('header_logo2', 'theme'));
 
@@ -43,7 +46,7 @@ if (!empty($PAGE->theme->settings->footnote)) {
 } else {
     $footnote = '<!-- There was no custom footnote set -->';
 }
-echo $OUTPUT->doctype()
+echo $OUTPUT->doctype();
 ?>
 <html <?php echo $OUTPUT->htmlattributes() ?>>
     <head>
@@ -89,7 +92,7 @@ echo $OUTPUT->doctype()
                             if (!empty($PAGE->theme->settings->alwayslangmenu)) {
                                 echo $OUTPUT->lang_menu();
                             }
-                            echo $OUTPUT->login_info();
+                            echo $logininfo;
                             echo $PAGE->headingmenu;
                         }
                         ?>

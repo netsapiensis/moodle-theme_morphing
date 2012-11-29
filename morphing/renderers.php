@@ -2,89 +2,85 @@
 
 class theme_morphing_core_renderer extends core_renderer
 {
-    public function login_info()
-    {
-        global $USER, $CFG, $DB, $SESSION;
-
-        if (during_initial_install()) {
+    /**
+     * Returns the custom menu if one has been set
+     *
+     * A custom menu can be configured by browsing to
+     *    Settings: Administration > Appearance > Themes > Morphing > Custom menu
+     * and then configuring the custommenu config setting as described.
+     *
+     * @param string $custommenuitems - custom menuitems set by theme instead of global theme settings
+     * @return string
+     */
+    public function morphing_custom_menu($custommenuitems = '') {
+        
+        global $PAGE;
+        
+        if (empty($custommenuitems) && !empty($PAGE->theme->settings->custommenuitems)) {
+            $custommenuitems = $PAGE->theme->settings->custommenuitems;
+        }
+        
+        if (empty($custommenuitems)) {
             return '';
         }
-
-        $loginpage = ((string)$this->page->url === get_login_url());
-        $course = $this->page->course;
-
-        if (session_is_loggedinas()) {
-            $realuser = session_get_realuser();
-            $fullname = fullname($realuser, true);
-            $realuserinfo = " [<a class=\"logged-in-link\" href=\"$CFG->wwwroot/course/loginas.php?id=$course->id&amp;sesskey=".sesskey()."\">$fullname</a>] ";
-        } else {
-            $realuserinfo = '';
-        }
-
-        $loginurl = get_login_url();
-
-        if (empty($course->id)) {
-            // $course->id is not defined during installation
-            return '';
-        } else if (isloggedin()) {
-            $context = get_context_instance(CONTEXT_COURSE, $course->id);
-
-            $fullname = fullname($USER, true);
-            // Since Moodle 2.0 this link always goes to the public profile page (not the course profile page)
-            $username = "<a class=\"logged-in-link\" href=\"$CFG->wwwroot/user/profile.php?id=$USER->id\">$fullname</a>";
-            if (is_mnet_remote_user($USER) and $idprovider = $DB->get_record('mnet_host', array('id'=>$USER->mnethostid))) {
-                $username .= " from <a href=\"{$idprovider->wwwroot}\">{$idprovider->name}</a>";
-            }
-            if (isguestuser()) {
-                $loggedinas = $realuserinfo.get_string('loggedinasguest');
-                if (!$loginpage) {
-                    $loggedinas .= " (<a href=\"$loginurl\">".get_string('login').'</a>)';
-                }
-            } else if (is_role_switched($course->id)) { // Has switched roles
-                $rolename = '';
-                if ($role = $DB->get_record('role', array('id'=>$USER->access['rsw'][$context->path]))) {
-                    $rolename = ': '.format_string($role->name);
-                }
-                $loggedinas = get_string('loggedinas', 'moodle', $username).$rolename.
-                          " (<a href=\"$CFG->wwwroot/course/view.php?id=$course->id&amp;switchrole=0&amp;sesskey=".sesskey()."\">".get_string('switchrolereturn').'</a>)';
-            } else {
-                $loggedinas = $realuserinfo.get_string('loggedinas', 'moodle', $username).' '.
-                          " (<a href=\"$CFG->wwwroot/login/logout.php?sesskey=".sesskey()."\">".get_string('logout').'</a>)';
-            }
-        } else {
-            $loggedinas = get_string('loggedinnot', 'moodle');
-            if (!$loginpage) {
-                $loggedinas .= " (<a href=\"$loginurl\">".get_string('login').'</a>)';
-            }
-        }
-
-        $loggedinas = '<div class="logininfo">'.$loggedinas.'</div>';
-
-        if (isset($SESSION->justloggedin)) {
-            unset($SESSION->justloggedin);
-            if (!empty($CFG->displayloginfailures)) {
-                if (!isguestuser()) {
-                    if ($count = count_login_failures($CFG->displayloginfailures, $USER->username, $USER->lastlogin)) {
-                        $loggedinas .= '&nbsp;<div class="loginfailures">';
-                        if (empty($count->accounts)) {
-                            $loggedinas .= get_string('failedloginattempts', '', $count);
-                        } else {
-                            $loggedinas .= get_string('failedloginattemptsall', '', $count);
-                        }
-                        if (file_exists("$CFG->dirroot/report/log/index.php") and has_capability('report/log:view', get_context_instance(CONTEXT_SYSTEM))) {
-                            $loggedinas .= ' (<a href="'.$CFG->wwwroot.'/report/log/index.php'.
-                                                 '?chooselog=1&amp;id=1&amp;modid=site_errors">'.get_string('logs').'</a>)';
-                        }
-                        $loggedinas .= '</div>';
-                    }
-                }
-            }
-        }
-
-        return $loggedinas;
+        $custommenu = new custom_menu($custommenuitems, current_language());
+        return $this->morphing_render_custom_menu($custommenu);
     }
     
-    public function render_custom_menu_item(custom_menu_item $menunode)
+    /**
+     * dev note: "copy-paste" from core:renderer, to avoid future php warnings, like: method "xxx" declaration does not correspond with ...
+     * 
+     * Renders a custom menu object (located in outputcomponents.php)
+     *
+     * The custom menu this method produces makes use of the YUI3 menunav widget
+     * and requires very specific html elements and classes.
+     *
+     * @staticvar int $menucount
+     * @param custom_menu $menu
+     * @return string
+     */
+    protected function morphing_render_custom_menu(custom_menu $menu) {
+        static $menucount = 0;
+        // If the menu has no children return an empty string
+        if (!$menu->has_children()) {
+            return '';
+        }
+        // Increment the menu count. This is used for ID's that get worked with
+        // in JavaScript as is essential
+        $menucount++;
+        // Initialise this custom menu (the custom menu object is contained in javascript-static
+        $jscode = js_writer::function_call_with_Y('M.core_custom_menu.init', array('custom_menu_'.$menucount));
+        $jscode = "(function(){{$jscode}})";
+        $this->page->requires->yui_module('node-menunav', $jscode);
+        // Build the root nodes as required by YUI
+        $content = html_writer::start_tag('div', array('id'=>'custom_menu_'.$menucount, 'class'=>'yui3-menu yui3-menu-horizontal javascript-disabled'));
+        $content .= html_writer::start_tag('div', array('class'=>'yui3-menu-content'));
+        $content .= html_writer::start_tag('ul');
+        // Render each child
+        foreach ($menu->get_children() as $item) {
+            $content .= $this->morphing_render_custom_menu_item($item);
+        }
+        // Close the open tags
+        $content .= html_writer::end_tag('ul');
+        $content .= html_writer::end_tag('div');
+        $content .= html_writer::end_tag('div');
+        // Return the custom menu
+        return $content;
+    }
+    
+    /**
+     * dev note: "copy-paste" from core:renderer, to avoid future php warnings, like: method "xxx" declaration does not correspond with ...
+     * Renders a custom menu node as part of a submenu
+     * 
+     *
+     * The custom menu this method produces makes use of the YUI3 menunav widget
+     * and requires very specific html elements and classes.
+     *
+     * @staticvar int $submenucount
+     * @param custom_menu_item $menunode
+     * @return string
+     */
+    public function morphing_render_custom_menu_item(custom_menu_item $menunode)
     {
         // Required to ensure we get unique trackable id's
         static $submenucount = 0;
@@ -102,7 +98,7 @@ class theme_morphing_core_renderer extends core_renderer
             $content .= html_writer::start_tag('div', array('class'=>'yui3-menu-content'));
             $content .= html_writer::start_tag('ul');
             foreach ($menunode->get_children() as $menunode) {
-                $content .= $this->render_custom_menu_item($menunode);
+                $content .= $this->morphing_render_custom_menu_item($menunode);
             }
             $content .= html_writer::end_tag('ul');
             $content .= html_writer::end_tag('div');
@@ -124,27 +120,22 @@ class theme_morphing_core_renderer extends core_renderer
     }
     
     /**
-     * Returns the custom menu if one has been set
-     *
-     * A custom menu can be configured by browsing to
-     *    Settings: Administration > Appearance > Themes > Theme settings
-     * and then configuring the custommenu config setting as described.
-     *
-     * @param string $custommenuitems - custom menuitems set by theme instead of global theme settings
-     * @return string
+     * 
+     * parse the html and add a class to the logged in link, so we can change its color
+     * @param string $html the output of parent::login_info()
+     * @return string the string containing class="logged-in-link" added to the link
      */
-    public function morphing_custom_menu($custommenuitems = '') {
+    public function morphing_loggedin_color($html)
+    {
+        global $USER;
         
-        global $PAGE;
-        
-        if (empty($custommenuitems) && !empty($PAGE->theme->settings->custommenuitems)) {
-            $custommenuitems = $PAGE->theme->settings->custommenuitems;
+        if (!empty($USER->morphing_loggedinas)) {
+            return $USER->morphing_loggedinas;
         }
-        
-        if (empty($custommenuitems)) {
-            return '';
-        }
-        $custommenu = new custom_menu($custommenuitems, current_language());
-        return $this->render_custom_menu($custommenu);
+
+        $loggedinas = str_replace('{$a}', '', get_string('loggedinas', 'moodle'));
+        $html = preg_replace('/' . $loggedinas . '<a([^>]+)>/', $loggedinas . '<a$1 class="logged-in-link">', $html);
+        $USER->morphing_loggedinas = $html;
+        return $html;
     }
 }
