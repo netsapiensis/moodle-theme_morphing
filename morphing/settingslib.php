@@ -1,5 +1,24 @@
 <?php
+/*
+ * ---------------------------------------------------------------------------------------------------------------------
+ * This file is part of the Morphing theme for Moodle
+ *
+ * The Morphing theme for Moodle software package is Copyright © 2008 onwards NetSapiensis AB and is provided
+ * under the terms of the GNU GENERAL PUBLIC LICENSE Version 3 (GPL). This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with this program. If not, see
+ * http://www.gnu.org/licenses/
+ * ---------------------------------------------------------------------------------------------------------------------
+ */
 
+/**
+ * handle all admin_setting_xxx instantiations here
+ * in order to keep the settings.php simple and readable
+ */
 class Morphing_Theme_Settings
 {
     const THEME = 'theme_morphing';
@@ -38,8 +57,10 @@ class Morphing_Theme_Settings
     }
     
     /**
-     * get a new instance of adminsetting
-     * @param type $tag
+     * get a new instance of adminsetting by tag
+     * uses $this->_settings
+     * @see self::_init
+     * @param string $tag
      */
     public function getAdminSetting($tag)
     {
@@ -56,7 +77,7 @@ class Morphing_Theme_Settings
         $title = $this->_s($tag);
         switch ($s['type']) {
             case 'html':
-                $return = new morphing_admin_setting_confightml($name, $title, '', '');
+                $return = new theme_morphing_admin_setting_confightml($name, $title, '', '');
                 break;
             case 'select':
                 $description = $this->_s($tag, true);
@@ -95,6 +116,12 @@ class Morphing_Theme_Settings
         return $return;
     }
     
+    /**
+     * get a setting value
+     * @param string $tag
+     * @return string
+     * @throws Exception
+     */
     public function get($tag)
     {
         if (empty($this->theme)) {
@@ -138,6 +165,11 @@ class Morphing_Theme_Settings
         return $this;
     }
     
+    /**
+     * instantiate and return an array of "section" to be added to the page
+     * @param string $name the section to return
+     * @return array of admin_setting_xxx instances
+     */
     public function getSettingsSection($name)
     {
         $return = array();
@@ -163,6 +195,9 @@ class Morphing_Theme_Settings
         return array_unique($tabs);
     }
     
+    /**
+     * init all settings config
+     */
     protected function _init()
     {   
         $sizes = array();

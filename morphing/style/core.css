@@ -1,5 +1,19 @@
+/*
+ * ---------------------------------------------------------------------------------------------------------------------
+ * This file is part of the Morphing theme for Moodle
+ *
+ * The Morphing theme for Moodle software package is Copyright © 2008 onwards NetSapiensis AB and is provided
+ * under the terms of the GNU GENERAL PUBLIC LICENSE Version 3 (GPL). This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with this program. If not, see
+ * http://www.gnu.org/licenses/
+ * ---------------------------------------------------------------------------------------------------------------------
+ */
 /** body font family and background image **/
-
 html,body {
     margin: 0;
     padding: 0;
@@ -1323,8 +1337,8 @@ div.questionbankwindow.block {
     max-width: 16px;
     max-height: 16px;
     position: absolute;
-    top: 0;
-    vertical-align: middle;
+    top: 50%;
+    margin-top: -8px;
 }
 
 .block_settings .block_tree li.item_with_icon > p.tree_item.leaf.hasicon img {
@@ -1333,10 +1347,6 @@ div.questionbankwindow.block {
 
 .block_navigation .block_tree .tree_item.branch {
     background-position: left center !important;
-}
-
-.block_navigation .block_tree li.item_with_icon > p img {
-    top: 1px !important;
 }
 
 .block_settings .block_tree li.item_with_icon > p {
@@ -1505,12 +1515,42 @@ fieldset.error legend {
     -o-animation: err_animation 2s; /* Opera */
 }
 
+/** bug fixes **/
+#page {
+    line-height: normal;
+}
+
 table#user-grades, .user-grade {
     font-size: 100%;
 }
 
 .morphing-settings-submit-hidden form#adminsettings .form-buttons {
     display: none;
+}
+
+#page-mod-quiz-edit .questionbankwindow div.header .title h2 {
+    font-weight: bold;
+    font-size: 100%;
+    text-shadow: none;
+    -moz-text-shadow: none;
+    -webkit-text-shadow: none;
+    color: [[setting:fontcolor]];
+}
+
+#page-mod-quiz-edit .questionbankwindow div.header a {
+    display: inline-block;
+    margin-left: 2px;
+}
+
+.course-content li.main .section li.activity a {
+    line-height: [[setting:lineheightreference]];
+    display: inline-block;
+}
+
+.course-content li.main .section li.activity a span {
+    display: inline-block;
+    line-height: [[setting:lineheightreference]];
+    vertical-align: middle;
 }
 
 /** Custom CSS **/
