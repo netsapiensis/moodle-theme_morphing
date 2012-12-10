@@ -17,5 +17,5 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version  = 2012120301;  // The current module version (Date: YYYYMMDDXX)
+$plugin->version  = 2012121000;  // The current module version (Date: YYYYMMDDXX)
 $plugin->component = 'theme_morphing';

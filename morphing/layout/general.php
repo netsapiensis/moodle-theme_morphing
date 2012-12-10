@@ -91,6 +91,9 @@ echo $OUTPUT->doctype();
                             <?php //if ($hasnavbar) { echo $PAGE->button; }  ?>
                         </div>			
                     </div>
+                    <div id="header-extra">
+                        <?php echo $PAGE->headingmenu . '<div class="loginfailures" id="yui_3_7_3_2_1355150495463_226">1 failed logins for 1 accounts (<a href="http://arena.netsapiensis.se/report/log/index.php?chooselog=1&amp;id=1&amp;modid=site_errors">Logs</a>)</div>'; ?>
+                    </div>
                 </div>
                 <?php if ($hascustommenu) { ?>
                     <div id="custommenu2"><?php echo $custommenu; ?></div>
@@ -109,7 +112,6 @@ echo $OUTPUT->doctype();
                                 echo $OUTPUT->lang_menu();
                             }
                             echo $logininfo;
-                            echo $PAGE->headingmenu;
                         }
                         ?>
                     </div>
