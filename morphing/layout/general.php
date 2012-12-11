@@ -92,7 +92,7 @@ echo $OUTPUT->doctype();
                         </div>			
                     </div>
                     <div id="header-extra">
-                        <?php echo $PAGE->headingmenu . '<div class="loginfailures" id="yui_3_7_3_2_1355150495463_226">1 failed logins for 1 accounts (<a href="http://arena.netsapiensis.se/report/log/index.php?chooselog=1&amp;id=1&amp;modid=site_errors">Logs</a>)</div>'; ?>
+                        <?php echo $PAGE->headingmenu ?>
                     </div>
                 </div>
                 <?php if ($hascustommenu) { ?>
