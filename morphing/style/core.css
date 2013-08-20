@@ -180,6 +180,7 @@ div#jcontrols_button {
     border-bottom: 0px solid #666;
     background: [[setting:maincolor]] url([[pix:theme|shadtop]]) repeat-x bottom left;
     font-size: [[setting:breadcrumbfontsize]];
+    position: relative;
 }
 
 div.jcontrolsleft {
@@ -201,6 +202,7 @@ div.jcontrolsright {
     float: right;
     min-width: 50%;
     margin-right: 15px;
+    position: relative;
 }
 
 .jcontrolsright .logininfo {
@@ -1567,6 +1569,17 @@ table.generaltable {
 
 div.paging {
     text-align: center;
+}
+
+.loginfailures {
+    position: absolute;
+    top: -[[setting:breadcrumbheight]];
+    right: 0px;
+    color: #ffffff;
+}
+
+.loginfailures a {
+    text-decoration: underline;
 }
 
 /** Custom CSS **/
